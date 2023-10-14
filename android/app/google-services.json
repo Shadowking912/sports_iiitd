@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "353337839676",
+    "project_id": "sportsiiitd",
+    "storage_bucket": "sportsiiitd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353337839676:android:6e8a0034e294a8ea5ab339",
+        "android_client_info": {
+          "package_name": "com.example.sports_iiitd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353337839676-0kbl3s14gvpb91v6576u8rgbh1db2svt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sports_iiitd",
+            "certificate_hash": "833673552f3551ae96d857e92d7d6e39bf680f75"
+          }
+        },
+        {
+          "client_id": "353337839676-5nbk1r5m76m9s82d7r2ene0m8rk5ke2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvvecfCZDh-XxFsQPF53voGXY0oXEYeaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353337839676-5nbk1r5m76m9s82d7r2ene0m8rk5ke2j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "353337839676-nbnvo5e8m5rqit6hjoiig22pj913vb2f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sportsIiitd.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
