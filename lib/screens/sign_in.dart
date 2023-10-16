@@ -21,15 +21,16 @@ class _SignInScreenState extends State<SignInScreen> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data == true) {
-                    Navigator.of(context).pushReplacementNamed('/home');
+                    Future.delayed(Duration.zero, () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/home', (Route<dynamic> route) => false);
+                    });
                     return Center(
                       child: Text('You are signed in'),
                     );
                   } else {
-                    WidgetsBinding.instance!.addPostFrameCallback((_) {
-                      Navigator.of(context)
-                          .pushReplacementNamed('/create_profile');
-                    });
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/create_profile', (Route<dynamic> route) => false);
                     return Center(
                       child: Text('You are signed in'),
                     );
@@ -49,13 +50,19 @@ class _SignInScreenState extends State<SignInScreen> {
 
                 onPressed: () async {
                   User? user = await signInWithGoogle();
-                  bool userDocExists = await checkIfUserDocExists();
-                  if (user != null) {
-                    if (!userDocExists) {
-                      Navigator.of(context)
-                          .pushReplacementNamed('/create_profile');
-                    } else {
-                      Navigator.of(context).pushReplacementNamed('/home');
+                  if (!user!.email!.contains('iiitd.ac.in')) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/wrong_email', (Route<dynamic> route) => false);
+                  } else {
+                    bool userDocExists = await checkIfUserDocExists();
+                    if (user != null) {
+                      if (!userDocExists) {
+                        Navigator.of(context)
+                            .pushReplacementNamed('/create_profile');
+                      } else {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/home', (Route<dynamic> route) => false);
+                      }
                     }
                   }
                 },
