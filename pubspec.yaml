@@ -40,6 +40,13 @@ dependencies:
   cloud_firestore: ^4.9.3
   flutter_form_builder: ^9.1.1
   form_builder_validators: ^9.1.0
+  # assets:
+  #   - "assets/football.jpg"
+  #   - "assets"/basketball.jpg"
+  #   - "assets/cricket.jpg"
+  #   - "assets/tennis.jpg"
+  #   - "assets/volleyball.jpg"
+  #   - "assets/badminton.jpg"
 
 dev_dependencies:
   flutter_test:
