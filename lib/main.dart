@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sports_iiitd/screens/Home.dart';
+import 'package:sports_iiitd/screens/equipment_history.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
 import 'package:sports_iiitd/services/auth.dart';
@@ -30,10 +32,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: EquipmentScreen(),
+      home: SignInScreen(),
       // add named routes
       routes: {
-        '/home': (context) => ViewEvents(),
+        '/home': (context) => HomeScreen(),
+        '/view_events': (context) => ViewEvents(),
         '/sign_in': (context) => SignInScreen(),
         '/create_profile': (context) => CreateProfile(),
         '/wrong_email': (context) => const WrongEmail(),
