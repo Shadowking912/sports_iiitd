@@ -10,6 +10,23 @@ class WrongEmail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            FeatherIcons.arrowLeft,
+            weight: 700,
+            size: 50,
+            color: Colors.red,
+          ),
+          onPressed: () {
+            Navigator.of(context)
+                .pushReplacementNamed('/sign_in'); // Example: Navigate back
+          },
+        ),
+        backgroundColor:
+            Colors.transparent, // Set the app bar background to transparent
+        elevation: 0, // Remove the shadow
+      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(48.0, 32.0, 48.0, 16.0),
         child: Container(
