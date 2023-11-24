@@ -1,13 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
-import 'package:sports_iiitd/screens/fines.dart';
 import 'package:sports_iiitd/screens/history.dart';
-import 'package:sports_iiitd/screens/notifications.dart';
 import 'package:sports_iiitd/screens/profile.dart';
-import 'package:sports_iiitd/screens/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);

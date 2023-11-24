@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
-import 'package:sports_iiitd/screens/equipments.dart';
-import 'package:sports_iiitd/screens/equipments.dart';
 
 class Equipment extends StatelessWidget {
   @override
