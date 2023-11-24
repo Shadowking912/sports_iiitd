@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
+import 'package:sports_iiitd/screens/fines.dart';
+import 'package:sports_iiitd/screens/history.dart';
+import 'package:sports_iiitd/screens/notifications.dart';
 import 'package:sports_iiitd/screens/profile.dart';
+import 'package:sports_iiitd/screens/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -18,9 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // List of pages to be rendered
   final List<Widget> _children = [
     HomePage(),
-    Container(
-      color: Colors.blue,
-    ),
+    History(),
     EquipmentScreen(),
     MyProfile(),
   ];
@@ -42,12 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: _currentIndex == 0 ? Icon(IconlyBold.home) : Icon(IconlyLight.home),
+            icon: _currentIndex == 0
+                ? Icon(IconlyBold.home)
+                : Icon(IconlyLight.home),
             label: 'Home',
             backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_currentIndex == 1 ? IconlyBold.discovery : IconlyLight.discovery),
+            icon: Icon(_currentIndex == 1
+                ? IconlyBold.discovery
+                : IconlyLight.discovery),
             label: 'Events',
             backgroundColor: Colors.black,
           ),
@@ -57,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_currentIndex == 3 ? IconlyBold.profile : IconlyLight.profile),
+            icon: Icon(
+                _currentIndex == 3 ? IconlyBold.profile : IconlyLight.profile),
             label: 'Profile',
             backgroundColor: Colors.black,
           ),
