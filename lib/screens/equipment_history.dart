@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../common/colors.dart';
+
 class EquipmentHistory extends StatefulWidget {
   EquipmentHistory({Key? key}) : super(key: key);
 
@@ -11,7 +13,7 @@ class _EquipmentHistoryState extends State<EquipmentHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CustomColors.black,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: Container(
@@ -25,12 +27,12 @@ class _EquipmentHistoryState extends State<EquipmentHistory> {
                   children: [
                     Icon(
                       Icons.arrow_back_ios,
-                      color: Colors.red,
+                      color: CustomColors.red,
                     ),
                     Text(
                       "GO BACK",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: CustomColors.red,
                         fontSize: 20,
                       ),
                     ),
@@ -42,7 +44,7 @@ class _EquipmentHistoryState extends State<EquipmentHistory> {
                 child: Text(
                   "HISTORY",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: CustomColors.white,
                     fontWeight: FontWeight.w800,
                     fontSize: 46,
                   ),

@@ -5,6 +5,8 @@ import 'package:line_icons/line_icons.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/profile.dart';
 
+import '../common/colors.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -27,13 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CustomColors.black,
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.red.withOpacity(0.3),
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.white,
+        backgroundColor: CustomColors.red.withOpacity(0.3),
+        selectedItemColor: CustomColors.red,
+        unselectedItemColor: CustomColors.white,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -42,24 +44,29 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: _currentIndex == 0 ? Icon(IconlyBold.home) : Icon(IconlyLight.home),
+            icon: _currentIndex == 0
+                ? Icon(IconlyBold.home)
+                : Icon(IconlyLight.home),
             label: 'Home',
-            backgroundColor: Colors.black,
+            backgroundColor: CustomColors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_currentIndex == 1 ? IconlyBold.discovery : IconlyLight.discovery),
+            icon: Icon(_currentIndex == 1
+                ? IconlyBold.discovery
+                : IconlyLight.discovery),
             label: 'Events',
-            backgroundColor: Colors.black,
+            backgroundColor: CustomColors.black,
           ),
           BottomNavigationBarItem(
             icon: Icon(_currentIndex == 2 ? IconlyBold.play : IconlyLight.play),
             label: 'Equipments',
-            backgroundColor: Colors.black,
+            backgroundColor: CustomColors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_currentIndex == 3 ? IconlyBold.profile : IconlyLight.profile),
+            icon: Icon(
+                _currentIndex == 3 ? IconlyBold.profile : IconlyLight.profile),
             label: 'Profile',
-            backgroundColor: Colors.black,
+            backgroundColor: CustomColors.black,
           ),
         ],
       ),
@@ -81,7 +88,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
       height: MediaQuery.of(context).size.height,
-      color: Colors.black,
+      color: CustomColors.black,
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
         child: Column(
@@ -94,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   'Good ${goodWhat()} ${user!.displayName!.split(' ')[0]}!',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
+                    color: CustomColors.white.withOpacity(0.6),
                     fontSize: 16,
                   ),
                 ),
@@ -113,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   'Discover ',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: CustomColors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
                   ),
@@ -121,50 +128,50 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   'Sports',
                   style: TextStyle(
-                    color: Colors.red,
+                    color: CustomColors.red,
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-            Divider(color: Colors.red[800]),
+            Divider(color: CustomColors.red),
             SizedBox(
               height: 10,
             ),
             Text(
               'Upcoming Events',
               style: TextStyle(
-                color: Colors.white,
+                color: CustomColors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Divider(color: Colors.red[800]),
+            Divider(color: CustomColors.red),
             SizedBox(
               height: 10,
             ),
             Text(
               'About Us',
               style: TextStyle(
-                color: Colors.white,
+                color: CustomColors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Divider(color: Colors.red[800]),
+            Divider(color: CustomColors.red),
             SizedBox(
               height: 10,
             ),
             Text(
               'Gallery',
               style: TextStyle(
-                color: Colors.white,
+                color: CustomColors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Divider(color: Colors.red[800]),
+            Divider(color: CustomColors.red),
           ],
         ),
       ),
