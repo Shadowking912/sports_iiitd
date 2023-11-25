@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
+import 'package:sports_iiitd/screens/equipment_history.dart';
 
 import '../common/colors.dart';
 
@@ -41,7 +42,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(40, 60, 40, 0),
+        padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
         color: CustomColors.black,
         child: Column(
           children: [
@@ -83,9 +84,9 @@ class SportWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add code to navigate to another page when the widget is clicked.
-        // For now, it just prints a message to the console.
-        print("Clicked on $sportName");
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return Equipment();
+        }));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -122,7 +123,7 @@ class SportWidget extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              padding: EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(
                 color: CustomColors.red.withOpacity(0.5),
                 borderRadius: BorderRadius.all(

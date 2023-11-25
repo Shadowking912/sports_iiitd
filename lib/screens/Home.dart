@@ -4,6 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/history.dart';
 import 'package:sports_iiitd/screens/profile.dart';
+import 'package:sports_iiitd/screens/view_events.dart';
 
 import '../common/colors.dart';
 
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // List of pages to be rendered
   final List<Widget> _children = [
     HomePage(),
-    History(),
+    ViewEvents(),
     EquipmentScreen(),
     MyProfile(),
   ];

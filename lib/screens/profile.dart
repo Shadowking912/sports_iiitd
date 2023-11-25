@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/services/auth.dart';
 
 import '../common/colors.dart';
@@ -14,30 +15,13 @@ class MyProfile extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 40),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           SizedBox(
             height: 60,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'PROFILE',
-                style: TextStyle(
-                  fontSize: 46,
-                  fontWeight: FontWeight.w400,
-                  color: CustomColors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.settings, color: CustomColors.white, size: 32),
-                color: CustomColors.white,
-              ),
-            ],
-          ),
+          customAppBar("Profile", context),
 
           // Profile Picture
           Container(
@@ -89,14 +73,18 @@ class MyProfile extends StatelessWidget {
               profileButtons(
                 title: 'History',
                 icon: IconlyBold.time_square,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/history');
+                },
                 subtitle: 'Your equipment records',
                 context: context,
               ),
               profileButtons(
                 title: 'Fines',
                 icon: IconlyBold.paper,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/fines');
+                },
                 subtitle: 'Your fines history',
                 context: context,
               ),
@@ -138,7 +126,7 @@ InkWell profileButtons(
   return InkWell(
     onTap: onTap,
     child: Container(
-      width: MediaQuery.of(context).size.width / 3 - 34,
+      width: MediaQuery.of(context).size.width / 3 - 20,
       height: 140,
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       decoration: BoxDecoration(

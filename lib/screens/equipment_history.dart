@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sports_iiitd/screens/fines/fine_summary.dart';
 
 import '../common/colors.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -10,45 +11,21 @@ class Equipment extends StatelessWidget {
   Widget build(BuildContext context) {
     // var SportName;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            FeatherIcons.arrowLeft,
-            weight: 900,
-            size: 50,
-            color: Colors.red,
-          ),
-          onPressed: () {
-            Navigator.of(context)
-                .pushReplacementNamed('/sign_in'); // Example: Navigate back
-          },
-        ),
-        backgroundColor:
-            Colors.black, // Set the app bar background to transparent
-        elevation: 0,
-      ),
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(20, 2, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
         color: Colors.black,
         child: Column(
           children: [
             customAppBar(
-              Text(
-                "FOOTBALL",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 50,
-                ),
-              ).data!,
+              "Football",
               context,
               logo: true,
               goBack: true,
             ),
             // SportWidget(SportName.toUpperCase()),
-            FineSummary(),
+            EquipmentFineSummary(),
             MyActions(),
             StockAvailability(),
           ],
@@ -58,107 +35,101 @@ class Equipment extends StatelessWidget {
   }
 }
 
-class EquipmentSportWidget {}
-
-class FineSummary extends StatefulWidget {
+class EquipmentFineSummary extends StatefulWidget {
   @override
-  State<FineSummary> createState() => _FineSummaryState();
+  State<EquipmentFineSummary> createState() => _EquipmentFineSummaryState();
 }
 
-class _FineSummaryState extends State<FineSummary> {
+class _EquipmentFineSummaryState extends State<EquipmentFineSummary> {
   double fineAmount = 256.22;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.fromLTRB(0, 10, 0, 15),
-        width: double.infinity,
-        height: 125,
-        decoration: BoxDecoration(
-            color: Color.fromARGB(255, 198, 48, 50),
-            borderRadius: BorderRadius.all(Radius.circular(15.0))),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(25, 15, 25, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Total Fines",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 18,
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 198, 48, 50),
-                      elevation: 0,
-                      disabledForegroundColor:
-                          Colors.white, // Set the text color
-                      disabledBackgroundColor:
-                          Colors.transparent, // Set the background color
-                    ),
-                    onPressed: () {
-                      // Add code to navigate to the details page
-                    },
-                    icon: Icon(Icons.arrow_forward, color: Colors.white),
-                    label: Text("View Details",
-                        style: TextStyle(
-                          color: Colors.white,
-                        )),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 10),
-
-              // Add some space between the button and the fine amount
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "₹ $fineAmount",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 40,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Latest Fines:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w200,
-                          fontSize: 15,
-                        ),
+    return InkWell(
+      onTap: () {
+        // Navigator.pushNamed(context, '/equipment_history');
+      },
+      child: Container(
+          margin: EdgeInsets.fromLTRB(0, 10, 0, 15),
+          width: double.infinity,
+          height: 125,
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 198, 48, 50),
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Total Fines",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 18,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 10.0), // Adjust the padding as needed
-                        child: Text(
-                          "₹ 12.44",
+                    ),
+                    Icon(Icons.arrow_forward, color: Colors.white),
+                      
+                    
+                  ],
+                ),
+    
+    
+                // Add some space between the button and the fine amount
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "₹ $fineAmount",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 40,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Latest Fines:",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
-                            fontSize: 10,
+                            fontSize: 15,
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-
-              // Add some space between the amount and the latest fines
-            ],
-          ),
-        ));
+                        Text(
+                          "₹12.44",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                        Text(
+                          "₹6.21",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+    
+                // Add some space between the amount and the latest fines
+              ],
+            ),
+          )),
+    );
   }
 }
 
@@ -182,14 +153,15 @@ class MyActions extends StatelessWidget {
             fontSize: 18,
           ),
         ),
+        SizedBox(height: 10), // Adjust the height for the desired spacing
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FineActionBox("Pay Fine", iconMap["plus"] ?? Icons.error,
+            EquipmentFineActionBox("Pay Fine", iconMap["plus"] ?? Icons.error,
                 "Complete your fine transaction"),
-            FineActionBox("Status", iconMap["swap"] ?? Icons.error,
+            EquipmentFineActionBox("Status", iconMap["swap"] ?? Icons.error,
                 "Check the status of your fines"),
-            FineActionBox("Reports", iconMap["wallet"] ?? Icons.error,
+            EquipmentFineActionBox("Reports", iconMap["wallet"] ?? Icons.error,
                 "Check out your current reports"),
           ],
         ),
@@ -198,20 +170,20 @@ class MyActions extends StatelessWidget {
   }
 }
 
-class FineActionBox extends StatelessWidget {
+class EquipmentFineActionBox extends StatelessWidget {
   final String boxTitle;
   final IconData iconName;
   final String description;
 
-  FineActionBox(this.boxTitle, this.iconName, this.description);
+  EquipmentFineActionBox(this.boxTitle, this.iconName, this.description);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
+    return InkWell(
+        onTap: () {},
         child: Container(
           height: 125,
-          width: 95,
+          width: MediaQuery.of(context).size.width / 3 - 20,
           decoration: BoxDecoration(
               color: Color.fromARGB(25, 198, 48, 50),
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -262,7 +234,7 @@ class StockAvailability extends StatelessWidget {
         ),
         SizedBox(height: 10), // Adjust the height for the desired spacing
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             StockBox("Footballs", 04, "Size 5"),
             StockBox("Cones", 12, "Medium Size"),
@@ -290,11 +262,11 @@ class StockBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
+    return InkWell(
+        onTap: () {},
         child: Container(
           height: 125,
-          width: 95,
+          width: MediaQuery.of(context).size.width / 3 - 20,
           decoration: BoxDecoration(
               color: Color.fromARGB(25, 198, 48, 50),
               borderRadius: BorderRadius.all(Radius.circular(10)),
