@@ -81,7 +81,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //User? user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,8 +98,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  //'Good ${goodWhat()} ${user!.displayName!.split(' ')[0]}!',
-                  "IIITD SPORTS",
+                  'Good ${goodWhat()} ${user!.displayName!.split(' ')[0]}!',
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.6),
                     fontSize: 26,
@@ -220,17 +219,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Column(
-                    crossAxisAlignment:  CrossAxisAlignment.start,
-                    children:  [
-                      
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
                         // footballa4b (39:97)
                         'Football',
-                        style:  TextStyle (
-                          fontSize:  14*2,
-                          fontWeight:  FontWeight.w600,
-                          height:  1.5*2/2,
-                          color:  Color(0xffffffff),
+                        style: TextStyle(
+                          fontSize: 14 * 2,
+                          fontWeight: FontWeight.w600,
+                          height: 1.5 * 2 / 2,
+                          color: Color(0xffffffff),
                         ),
                       ),
                     ],
@@ -253,7 +251,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 5,
             ),
-            Container(
+            SizedBox(
               height: 150,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -262,24 +260,21 @@ class _HomePageState extends State<HomePage> {
                     // autogrouphakdyiB (Y2Nnacbaf5ZsPiAiJuhaKd)
                     padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                     height: double.infinity,
-                    child: SizedBox(
-                      child: Container(
-                        child: Text(
-                          'Tuesday\nAugust 15th',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
+
+                    child: Text(
+                      'Tuesday\nAugust 15th',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffffffff),
                       ),
                     ),
                   ),
                   Container(
                     // autogroupvzsd1Py (Y2NnDdCZ9SXqsfxVfnvzsD)
                     padding: EdgeInsets.all(12),
-                    width: 300,
+                    width: 280,
                     decoration: BoxDecoration(
                       color: Color(0x4fab343b),
                       borderRadius: BorderRadius.circular(6),
@@ -287,23 +282,22 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                          // intrafootballcompetition6gK (39:128)
-                          Text(
-                            'Intra Football Competition',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xffffffff),
-                            ),
+                        // intrafootballcompetition6gK (39:128)
+                        Text(
+                          'Intra Football Competition',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xffffffff),
                           ),
-                        
+                        ),
+
                         Container(
                           // loremipsumdolorsitametconsecte (39:129)
                           margin:
                               EdgeInsets.fromLTRB(0 * 2, 0 * 2, 4 * 2, 12 * 2),
-                          constraints: BoxConstraints(
-                          ),
+                          constraints: BoxConstraints(),
                           child: Text(
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus tristique ultricies.',
                             style: TextStyle(
