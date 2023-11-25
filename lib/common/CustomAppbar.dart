@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 
-Row customAppBar(String title, bool goBack, BuildContext context,
-    {bool logo = false}) {
+import 'colors.dart';
+
+Row customAppBar(String title, BuildContext context,
+    {bool logo = false, bool goBack = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           goBack
-              ? IconButton(
-                  onPressed: () {
+              ? InkWell(
+                  onTap: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
+                  child: Row(
+                    children: [
+                      Icon(
+                        IconlyLight.arrow_left,
+                        color: CustomColors.red,
+                        size: 16,
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        "Go Back",
+                        style: TextStyle(color: CustomColors.red, fontSize: 16),
+                      ),
+                    ],
                   ),
                 )
               : Container(),
@@ -23,7 +39,7 @@ Row customAppBar(String title, bool goBack, BuildContext context,
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w400,
-              color: Colors.white,
+              color: CustomColors.white,
             ),
             textAlign: TextAlign.left,
           ),

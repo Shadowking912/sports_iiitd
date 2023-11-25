@@ -46,7 +46,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   decoration: InputDecoration(labelText: 'Roll'),
                   // regex to get numeric part of email
                   initialValue:
-                      '20' + _user!.email!.split(RegExp(r'\D+')).join(),
+                      '20' + _user.email!.split(RegExp(r'\D+')).join(),
                   validator: FormBuilderValidators.compose(
                     [
                       FormBuilderValidators.required(),
@@ -88,7 +88,7 @@ class _CreateProfileState extends State<CreateProfile> {
                 FormBuilderTextField(
                   name: 'Phone',
                   decoration: InputDecoration(labelText: 'Phone'),
-                  initialValue: _user!.phoneNumber,
+                  initialValue: _user.phoneNumber,
                   validator: FormBuilderValidators.compose(
                     [
                       FormBuilderValidators.required(),
@@ -166,8 +166,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           );
                           await createStudentDocument(student);
                           Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .pushReplacementNamed('/home');
+                          Navigator.of(context).pushReplacementNamed('/home');
                         }
                         // Navigator.of(context).pushReplacementNamed('/home');
                       },

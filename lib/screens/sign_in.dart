@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sports_iiitd/services/db.dart';
+import '../common/colors.dart';
 import '../services/auth.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
             return Center(
               child: MaterialButton(
                 // style it as a red button
-                color: Colors.red,
+                color: CustomColors.red,
 
                 onPressed: () async {
                   User? user = await signInWithGoogle();
@@ -69,7 +70,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Text(
                   'Sign in with Google',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: CustomColors.white,
                   ),
                 ),
               ),

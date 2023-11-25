@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/services/auth.dart';
 
+import '../common/colors.dart';
+
 class MyProfile extends StatelessWidget {
   MyProfile({Key? key}) : super(key: key);
   final User? user = getCurrentUser();
@@ -26,13 +28,13 @@ class MyProfile extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 46,
                   fontWeight: FontWeight.w400,
-                  color: Colors.white,
+                  color: CustomColors.white,
                 ),
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.settings, color: Colors.white, size: 32),
-                color: Colors.white,
+                icon: Icon(Icons.settings, color: CustomColors.white, size: 32),
+                color: CustomColors.white,
               ),
             ],
           ),
@@ -49,7 +51,7 @@ class MyProfile extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               border: Border.all(
-                color: Colors.white,
+                color: CustomColors.white,
                 width: 3,
               ),
             ),
@@ -61,14 +63,14 @@ class MyProfile extends StatelessWidget {
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: CustomColors.white,
             ),
           ),
           Text(
             '@${user!.email!.split('@')[0]}',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.white.withOpacity(0.7),
+              color: CustomColors.white.withOpacity(0.7),
             ),
           ),
           SizedBox(
@@ -110,15 +112,15 @@ class MyProfile extends StatelessWidget {
                   context, '/sign_in', (route) => false);
             },
             style: TextButton.styleFrom(
-              backgroundColor: Colors.black,
+              backgroundColor: CustomColors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: Colors.red),
+                side: BorderSide(color: CustomColors.red),
               ),
             ),
             child: Text(
               'Logout',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: CustomColors.white),
             ),
           )
         ],
@@ -140,9 +142,9 @@ InkWell profileButtons(
       height: 140,
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.red),
+        border: Border.all(color: CustomColors.red),
         borderRadius: BorderRadius.circular(12),
-        color: Colors.red.withOpacity(0.1),
+        color: CustomColors.red.withOpacity(0.1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,13 +152,13 @@ InkWell profileButtons(
         children: [
           Icon(
             icon,
-            color: Colors.red,
+            color: CustomColors.red,
             size: 40,
           ),
           Text(
             title,
             style: TextStyle(
-              color: Colors.white,
+              color: CustomColors.white,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -164,7 +166,7 @@ InkWell profileButtons(
           Text(
             subtitle,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
+              color: CustomColors.white.withOpacity(0.7),
               fontSize: 10,
             ),
           ),

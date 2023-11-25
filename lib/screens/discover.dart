@@ -3,38 +3,7 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 
-import '../common/colors.dart';
-
-class EquipmentScreen extends StatefulWidget {
-  @override
-  State<EquipmentScreen> createState() => _EquipmentScreenState();
-}
-
-class _EquipmentScreenState extends State<EquipmentScreen> {
-  final List<String> sports = [
-    "FOOTBALL",
-    "BASKETBALL",
-    "TABLE TENNIS",
-    "VOLLEYBALL",
-    "TENNIS",
-    "CRICKET"
-  ];
-
-  List<String> filteredSports = [];
-  @override
-  void initState() {
-    filteredSports = sports;
-    super.initState();
-  }
-
-  void search(String query) {
-    filteredSports = sports
-        .where(
-            (sport) => sport.toLowerCase().contains(query.toLowerCase().trim()))
-        .toList();
-    setState(() {});
-  }
-
+class Discover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,29 +11,24 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.fromLTRB(40, 60, 40, 0),
-        color: CustomColors.black,
+        color: Colors.black,
         child: Column(
           children: [
-            customAppBar(
-              "EQUIPMENTS",
-              context,
-              logo: true,
-            ),
-            SizedBox(height: 20),
-            CustomSearchBar(
-              onChanged: search,
-            ),
+            customAppBar("DISCOVER", context, logo: true, goBack: true),
+            CustomSearchBar(),
             Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemCount: filteredSports.length,
-                itemBuilder: (context, index) {
-                  return SportWidget(filteredSports[index]);
-                },
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                children: <Widget>[
+                  SportWidget("FOOTBALL"),
+                  SportWidget("BASKETBALL"),
+                  SportWidget("TABLE TENNIS"),
+                  SportWidget("VOLLEYBALL"),
+                  SportWidget("TENNIS"),
+                  SportWidget("CRICKET"),
+                ],
               ),
             ),
           ],
@@ -89,7 +53,7 @@ class SportWidget extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: CustomColors.white,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
             image: AssetImage(
@@ -110,13 +74,13 @@ class SportWidget extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Container(
                 decoration: BoxDecoration(
-                  color: CustomColors.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: EdgeInsets.all(4),
                 child: Icon(
                   IconlyLight.arrow_right_2,
-                  color: CustomColors.red,
+                  color: Colors.red,
                   size: 24,
                 ),
               ),
@@ -124,7 +88,7 @@ class SportWidget extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               decoration: BoxDecoration(
-                color: CustomColors.red.withOpacity(0.5),
+                color: Colors.red.withOpacity(0.5),
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
                 ),
@@ -132,7 +96,7 @@ class SportWidget extends StatelessWidget {
               child: Text(
                 sportName.toUpperCase(),
                 style: TextStyle(
-                  color: CustomColors.white,
+                  color: Colors.white,
                   fontWeight: FontWeight.w800,
                   fontSize: 14,
                 ),
