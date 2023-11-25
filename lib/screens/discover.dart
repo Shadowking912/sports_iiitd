@@ -14,7 +14,7 @@ class Discover extends StatelessWidget {
         color: Colors.black,
         child: Column(
           children: [
-            customAppBar("DISCOVER", false, context, logo: true),
+            customAppBar("DISCOVER", context, logo: true, goBack: true),
             CustomSearchBar(),
             Expanded(
               child: GridView.count(
