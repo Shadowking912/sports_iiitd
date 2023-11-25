@@ -44,6 +44,7 @@ dependencies:
   iconly: ^1.0.1
   flutter_svg: ^0.22.0
   flutter_feather_icons: ^2.0.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
