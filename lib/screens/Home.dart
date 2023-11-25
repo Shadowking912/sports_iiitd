@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
+import 'package:sports_iiitd/screens/history.dart';
 import 'package:sports_iiitd/screens/profile.dart';
 
 import '../common/colors.dart';
@@ -20,9 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // List of pages to be rendered
   final List<Widget> _children = [
     HomePage(),
-    Container(
-      color: Colors.blue,
-    ),
+    History(),
     EquipmentScreen(),
     MyProfile(),
   ];
