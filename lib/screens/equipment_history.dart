@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sports_iiitd/screens/fines/fine_summary.dart';
 
-import '../common/colors.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 
@@ -73,12 +70,9 @@ class _EquipmentFineSummaryState extends State<EquipmentFineSummary> {
                       ),
                     ),
                     Icon(Icons.arrow_forward, color: Colors.white),
-                      
-                    
                   ],
                 ),
-    
-    
+
                 // Add some space between the button and the fine amount
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,7 +118,7 @@ class _EquipmentFineSummaryState extends State<EquipmentFineSummary> {
                     )
                   ],
                 ),
-    
+
                 // Add some space between the amount and the latest fines
               ],
             ),

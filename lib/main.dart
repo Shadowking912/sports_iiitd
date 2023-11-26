@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sports_iiitd/screens/Home.dart';
-<<<<<<< HEAD
-import 'package:sports_iiitd/screens/equipment_history.dart';
-import 'package:sports_iiitd/screens/equipments.dart';
-import 'package:sports_iiitd/screens/equipment_history.dart';
-import 'package:sports_iiitd/screens/profile.dart';
-import 'package:sports_iiitd/screens/events.dart';
-=======
+import 'package:sports_iiitd/screens/create_profile.dart';
 import 'package:sports_iiitd/screens/fines/fines.dart';
->>>>>>> e788315252ed18da0f1162fc418270f2e556b41f
+import 'package:sports_iiitd/screens/landing_page.dart';
+import 'package:sports_iiitd/screens/sign_in.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
+import 'package:sports_iiitd/screens/wrong_email.dart';
+import 'package:sports_iiitd/screens/history.dart';
 import 'firebase_options.dart';
 import 'screens/create_event.dart';
-import 'screens/create_profile.dart';
-import 'screens/history.dart';
-import 'screens/sign_in.dart';
-import 'screens/wrong_email.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,11 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-<<<<<<< HEAD
-      home: CreateEvent(),
-=======
-      home: SignInScreen(),
->>>>>>> e788315252ed18da0f1162fc418270f2e556b41f
+      home: LandingPage(),
       // add named routes
       routes: {
         '/home': (context) => HomeScreen(),

@@ -4,7 +4,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/services/models.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:iconly/iconly.dart';
 import '../services/db.dart';
 
 class CreateEvent extends StatefulWidget {
@@ -46,18 +45,17 @@ class _CreateEventState extends State<CreateEvent> {
         child: Column(
           children: [
             customAppBar(
-              Text(
-                "CREATE EVENT",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 50,
-                ),
-              ).data!,
-              false,
-              context,
-              logo: true,
-            ),
+                Text(
+                  "CREATE EVENT",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 50,
+                  ),
+                ).data!,
+                context,
+                logo: true,
+                goBack: false),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: FormBuilder(
