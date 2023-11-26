@@ -111,76 +111,98 @@ class _MonthlyEventsState extends State<MonthlyEvents> {
     String displayMonth = currentMonth + ", " + currentYear;
     List<Event> events = eventsByMonth[currentMonth] ?? [];
 
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding:
-            EdgeInsets.fromLTRB(0, 30, 20, 0), // Adjust the padding as needed
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(IconlyLight.arrow_left_2, color: Colors.white),
-            Text(
-              displayMonth, // Display the month name here
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-            ),
-            Icon(IconlyLight.arrow_right_2, color: Colors.white),
-            SizedBox(width: 60),
-            ElevatedButton(
-              onPressed: () {
-                // Add your button onPressed logic here
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 95, 22, 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      8.0), // Adjust the border radius as needed
+    return Expanded(
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding:
+              EdgeInsets.fromLTRB(0, 30, 20, 0), // Adjust the padding as needed
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(IconlyLight.arrow_left_2, color: Colors.white),
+              Text(
+                displayMonth, // Display the month name here
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
                 ),
-                padding: EdgeInsets.all(16.0),
               ),
-              child: Icon(
-                IconlyLight.calendar,
-                color: Colors.white,
-                size: 24.0,
+              Icon(IconlyLight.arrow_right_2, color: Colors.white),
+              SizedBox(width: 60),
+              ElevatedButton(
+                onPressed: () {
+                  // Add your button onPressed logic here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 95, 22, 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        8.0), // Adjust the border radius as needed
+                  ),
+                  padding: EdgeInsets.all(16.0),
+                ),
+                child: Icon(
+                  IconlyLight.calendar,
+                  color: Colors.white,
+                  size: 24.0,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      // Expanded(
-      // child: ListView.builder(
-      //   itemCount: events.length,
-      //   itemBuilder: (context, index) {
-      //     Event event = events[index];
-      //     return Padding(
-      //       padding: EdgeInsets.symmetric(vertical: 8.0),
-      //       child: Row(
-      //         children: [
-      //           Column(
-      //             crossAxisAlignment: CrossAxisAlignment.start,
-      //             children: [
-      //               Text(event.name, style: TextStyle(color: Colors.white,
-      //           fontSize: 15,)),
-      //               Text(event.day+ " "+ event.date , style: TextStyle(color: Colors.white ,
-      //           fontSize: 12,)),
-      //             ]
-
-      //           ),
-
-      //           Image.network(
-      //           event.img, // Replace with the property that holds the image URL
-      //           width: 50.0,
-      //           height: 50.0,
-      //           fit: BoxFit.cover,
-      //         ),
-      //         ]
-      //       ),
-      //     );
-      //   }
-      // )),
-    ]);
+        Expanded(
+            child: ListView.builder(
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  Event event = events[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 3),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(IconlyBold.more_circle,
+                                color: const Color.fromARGB(255, 95, 22, 16)),
+                            Container(
+                              width: 500,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(event.name,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold)),
+                                    Text(event.day + " " + event.date,
+                                        style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 212, 209, 209),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                        )),
+                                    Text(event.description,
+                                        style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 212, 209, 209),
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 14,
+                                        )),
+                                  ]),
+                            ),
+                            SizedBox(width: 10),
+                            Image.asset(
+                              "assets/" + event.img,
+                              width: 100.0,
+                              height: 100.0,
+                              fit: BoxFit.cover,
+                            ),
+                          ]),
+                    ),
+                  );
+                })),
+      ]),
+    );
   }
 }

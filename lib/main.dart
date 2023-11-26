@@ -3,10 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sports_iiitd/screens/Home.dart';
 import 'package:sports_iiitd/screens/create_profile.dart';
 import 'package:sports_iiitd/screens/fines/fines.dart';
-import 'package:sports_iiitd/screens/landing_page.dart';
 import 'package:sports_iiitd/screens/sign_in.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
 import 'package:sports_iiitd/screens/wrong_email.dart';
+import 'package:sports_iiitd/screens/events.dart';
 import 'package:sports_iiitd/screens/history.dart';
 import 'firebase_options.dart';
 import 'screens/create_event.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LandingPage(),
+      home: CreateEvent(),
       // add named routes
       routes: {
         '/home': (context) => HomeScreen(),

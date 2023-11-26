@@ -50,7 +50,7 @@ class _CreateEventState extends State<CreateEvent> {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
-                    fontSize: 50,
+                    fontSize: 90,
                   ),
                 ).data!,
                 context,
@@ -67,6 +67,9 @@ class _CreateEventState extends State<CreateEvent> {
                       decoration: InputDecoration(
                         labelText: 'Event Name',
                       ),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
@@ -78,6 +81,9 @@ class _CreateEventState extends State<CreateEvent> {
                       decoration: InputDecoration(
                         labelText: 'Event Date',
                       ),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
@@ -87,6 +93,9 @@ class _CreateEventState extends State<CreateEvent> {
                       name: 'location',
                       decoration: InputDecoration(
                         labelText: 'Event Location',
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
@@ -100,6 +109,9 @@ class _CreateEventState extends State<CreateEvent> {
                               value: sport, child: Text(sport)))
                           .toList(),
                       decoration: InputDecoration(labelText: 'Sport'),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                       validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required()],
                       ),
@@ -109,6 +121,9 @@ class _CreateEventState extends State<CreateEvent> {
                       name: 'description',
                       decoration: InputDecoration(
                         labelText: 'Event Description',
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
