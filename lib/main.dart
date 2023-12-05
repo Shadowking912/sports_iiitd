@@ -4,6 +4,7 @@ import 'package:sports_iiitd/screens/Home.dart';
 import 'package:sports_iiitd/screens/create_profile.dart';
 import 'package:sports_iiitd/screens/fines/fines.dart';
 import 'package:sports_iiitd/screens/landing_page.dart';
+import 'package:sports_iiitd/screens/sg.dart';
 import 'package:sports_iiitd/screens/sign_in.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
 import 'package:sports_iiitd/screens/wrong_email.dart';
