@@ -7,6 +7,7 @@ import 'package:sports_iiitd/screens/profile.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
 
 import '../common/colors.dart';
+import 'events.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // List of pages to be rendered
   final List<Widget> _children = [
     HomePage(),
-    ViewEvents(),
+    Events(),
     EquipmentScreen(),
     MyProfile(),
   ];
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(4, 60, 4, 0),
+      padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
       height: MediaQuery.of(context).size.height,
       color: CustomColors.black,
       width: MediaQuery.of(context).size.width,
@@ -159,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 10,
                   ),
                   Container(
                     // autogroupam9un7M (Y2Nkf18tQBB8LVVXFoAm9u)
@@ -179,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    width: 20,
+                    width: 10,
                   ),
                   Container(
                     // autogroupam9un7M (Y2Nkf18tQBB8LVVXFoAm9u)
@@ -274,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     // autogroupvzsd1Py (Y2NnDdCZ9SXqsfxVfnvzsD)
                     padding: EdgeInsets.all(12),
-                    width: 280,
+                    width: 278,
                     decoration: BoxDecoration(
                       color: Color(0x4fab343b),
                       borderRadius: BorderRadius.circular(6),

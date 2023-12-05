@@ -17,47 +17,16 @@ class _CreateEventState extends State<CreateEvent> {
   Widget build(BuildContext context) {
     final Event? event = ModalRoute.of(context)!.settings.arguments as Event?;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            FeatherIcons.arrowLeft,
-            weight: 900,
-            size: 50,
-            color: Colors.red,
-          ),
-          onPressed: () {
-            Navigator.of(context)
-                .pushReplacementNamed('/sign_in'); // Example: Navigate back
-          },
-        ),
-        backgroundColor:
-            Colors.black, // Set the app bar background to transparent
-        elevation: 0,
-      ),
-      // appBar: AppBar(
-      //   title: Text('Create Event'),
-      // ),
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(20, 2, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
         color: Colors.black,
         child: Column(
           children: [
-            customAppBar(
-                Text(
-                  "CREATE EVENT",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 90,
-                  ),
-                ).data!,
-                context,
-                logo: true,
-                goBack: false),
+            customAppBar("CREATE EVENT", context, logo: true, goBack: true),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: FormBuilder(
                 key: _formKey,
                 child: Column(

@@ -29,14 +29,14 @@ class Events extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(40, 60, 40, 0),
+        padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
         color: Colors.black,
         child: Column(
           children: [
             customAppBar("EVENTS", context, logo: true, goBack: false),
             CustomSearchBar(),
             MonthlyEvents(),
-          ],
+          ],  
         ),
       ),
     );
