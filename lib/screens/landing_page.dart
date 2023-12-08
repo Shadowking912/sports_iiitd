@@ -79,7 +79,7 @@ class _LandingPageState extends State<LandingPage> {
                 style: GoogleFonts.anton(
                     color: CustomColors.white,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.7,
+                    letterSpacing: 1.0,
                     fontSize: 35,
                     height: 1.3),
               ),
@@ -120,7 +120,7 @@ class _LandingPageState extends State<LandingPage> {
                 style: GoogleFonts.anton(
                     color: CustomColors.white,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.7,
+                    letterSpacing: 1.5,
                     fontSize: 40,
                     height: 2),
               ),
