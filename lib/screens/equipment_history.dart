@@ -1,9 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
+import 'package:sports_iiitd/services/db.dart';
 
 class Equipment extends StatelessWidget {
+  String SportName;
+  Equipment(this.SportName);
   @override
   Widget build(BuildContext context) {
     // var SportName;
@@ -16,15 +21,15 @@ class Equipment extends StatelessWidget {
         child: Column(
           children: [
             customAppBar(
-              "Football",
+              SportName,
               context,
               logo: true,
               goBack: true,
             ),
             // SportWidget(SportName.toUpperCase()),
-            EquipmentFineSummary(),
+            EquipmentFineSummary(sportName: SportName),
             MyActions(),
-            StockAvailability(),
+            StockAvailability(SportName),
           ],
         ),
       ),
@@ -33,12 +38,13 @@ class Equipment extends StatelessWidget {
 }
 
 class EquipmentFineSummary extends StatefulWidget {
+  final String sportName;
+  EquipmentFineSummary({required this.sportName});
   @override
   State<EquipmentFineSummary> createState() => _EquipmentFineSummaryState();
 }
 
 class _EquipmentFineSummaryState extends State<EquipmentFineSummary> {
-  double fineAmount = 256.22;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -46,83 +52,89 @@ class _EquipmentFineSummaryState extends State<EquipmentFineSummary> {
         // Navigator.pushNamed(context, '/equipment_history');
       },
       child: Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 15),
-          width: double.infinity,
-          height: 125,
-          decoration: BoxDecoration(
-              color: Color.fromARGB(255, 198, 48, 50),
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        margin: EdgeInsets.fromLTRB(0, 10, 0, 15),
+        width: double.infinity,
+        height: 125,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 198, 48, 50),
+            borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        child: FutureBuilder(
+          future: getFineBySport(widget.sportName.toLowerCase()),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
+              return Padding(
+                padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Total Fines",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Icon(Icons.arrow_forward, color: Colors.white),
-                  ],
-                ),
-
-                // Add some space between the button and the fine amount
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "₹ $fineAmount",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 40,
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Latest Fines:",
+                          "Total Fines",
                           style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w200,
-                            fontSize: 15,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 18,
                           ),
                         ),
-                        Text(
-                          "₹12.44",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        Text(
-                          "₹6.21",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
+                        Icon(Icons.arrow_forward, color: Colors.white),
                       ],
-                    )
+                    ),
+
+                    // Add some space between the button and the fine amount
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "₹ ${snapshot.data?[0] ?? 0}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 40,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Latest Fines:",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w200,
+                                fontSize: 15,
+                              ),
+                            ),
+                            for (int i = 0;
+                                i < min(2, snapshot.data![1].length);
+                                i++)
+                              Text(
+                                "₹ ${snapshot.data?[1][i]['amount'] ?? 0}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                          ],
+                        )
+                      ],
+                    ),
+
+                    // Add some space between the amount and the latest fines
                   ],
                 ),
-
-                // Add some space between the amount and the latest fines
-              ],
-            ),
-          )),
+              );
+            } else {
+              return Center(child: Text("No data found"));
+            }
+          },
+        ),
+      ),
     );
   }
 }
@@ -212,6 +224,8 @@ class EquipmentFineActionBox extends StatelessWidget {
 }
 
 class StockAvailability extends StatelessWidget {
+  String sportName;
+  StockAvailability(this.sportName);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -225,22 +239,34 @@ class StockAvailability extends StatelessWidget {
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
-        ),
-        SizedBox(height: 10), // Adjust the height for the desired spacing
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            StockBox("Footballs", 04, "Size 5"),
-            StockBox("Cones", 12, "Medium Size"),
-            StockBox("Hurdles", 08, "Small Size"),
-          ],
-        ),
-        SizedBox(height: 10), // Adjust the height for the desired spacing
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            StockBox("Football Studs", 02, "Size 9"),
-          ],
+        ), // Adjust the height for the desired spacing
+        FutureBuilder(
+          future: getEquipmentsBySport(sportName),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
+              return GridView.builder(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return StockBox(
+                    snapshot.data![index]['Name'],
+                    snapshot.data![index]['Quantity'],
+                  );
+                  // return Text("Hello");
+                },
+              );
+            }
+            return Center(child: Text("No data found"));
+          },
         ),
       ],
     );
@@ -250,9 +276,8 @@ class StockAvailability extends StatelessWidget {
 class StockBox extends StatelessWidget {
   final String boxTitle;
   final int quantity;
-  final String description;
 
-  StockBox(this.boxTitle, this.quantity, this.description);
+  StockBox(this.boxTitle, this.quantity);
 
   @override
   Widget build(BuildContext context) {
@@ -283,12 +308,6 @@ class StockBox extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       )),
-                  Text(description,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 9,
-                      ))
                 ]),
           ),
         ));

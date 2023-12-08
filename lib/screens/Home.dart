@@ -4,6 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/history.dart';
 import 'package:sports_iiitd/screens/profile.dart';
+import 'package:sports_iiitd/screens/sg.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
 
 import '../common/colors.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     HomePage(),
     Events(),
     EquipmentScreen(),
+    SGs(),
     MyProfile(),
   ];
   @override
@@ -60,6 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(_currentIndex == 2 ? IconlyBold.play : IconlyLight.play),
             label: 'Equipments',
+            backgroundColor: CustomColors.black,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(_currentIndex == 4
+                ? IconlyBold.folder
+                : IconlyLight.folder),
+            label: 'SGs',
             backgroundColor: CustomColors.black,
           ),
           BottomNavigationBarItem(

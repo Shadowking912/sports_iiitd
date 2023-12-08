@@ -30,14 +30,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        brightness: Brightness.dark,
       ),
       home: HomeScreen(),
       // add named routes
       routes: {
         '/home': (context) => HomeScreen(),
-        '/view_events': (context) => ViewEvents(),
+        // '/view_events': (context) => ViewEvents(),
         '/sign_in': (context) => SignInScreen(),
         '/create_profile': (context) => CreateProfile(),
         '/wrong_email': (context) => const WrongEmail(),

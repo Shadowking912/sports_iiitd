@@ -85,7 +85,7 @@ class SportWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
-          return Equipment();
+          return Equipment(sportName);
         }));
       },
       child: Container(

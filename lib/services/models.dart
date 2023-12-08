@@ -10,6 +10,18 @@ List<String> sportsList = [
   'Chess',
 ];
 
+Map<String, String> sportsImages = {
+  'Cricket': 'cricket.jpg',
+  'Football': 'football.jpg',
+  'Basketball': 'basketball.jpg',
+  'Volleyball': 'volleyball.jpg',
+  'Badminton': 'badminton.jpg',
+  'Tennis': 'tennis.jpg',
+  'Table Tennis': 'tabletennis.jpg',
+  'Hockey': 'hockey.jpg',
+  'Chess': 'chess.jpg',
+};
+
 class Student {
   String name;
   String roll;
@@ -18,6 +30,8 @@ class Student {
   String phone;
   String batch;
   String favouriteSport;
+  List registeredEvents = [];
+  List fines = [];
 
   Student({
     required this.name,
@@ -27,6 +41,8 @@ class Student {
     required this.phone,
     required this.batch,
     required this.favouriteSport,
+    this.registeredEvents = const [],
+    this.fines = const [],
   });
 
   Map<String, dynamic> toJson() {
@@ -38,6 +54,8 @@ class Student {
       'phone': phone,
       'batch': batch,
       'favouriteSport': favouriteSport,
+      'registeredEvents': registeredEvents,
+      'fines': fines,
     };
   }
 
@@ -50,6 +68,8 @@ class Student {
       phone: json['phone'] ?? json['Phone'],
       batch: json['batch'] ?? json['Batch'],
       favouriteSport: json['favouriteSport'] ?? json['Favourite Sport'],
+      registeredEvents: json['registeredEvents'] ?? json['Registered Events'] ?? [],
+      fines: json['fines'] ?? json['Fines'] ?? [],
     );
   }
 }
@@ -61,6 +81,7 @@ class Event {
   String location;
   String sport;
   String description;
+  List participants = [];
 
   Event({
     required this.id,
@@ -69,6 +90,7 @@ class Event {
     required this.location,
     required this.sport,
     required this.description,
+    this.participants = const [],
   });
 
   Map<String, dynamic> toJson() {
@@ -79,6 +101,7 @@ class Event {
       'location': location,
       'sport': sport,
       'description': description,
+      'participants': participants,
     };
   }
 
@@ -90,6 +113,32 @@ class Event {
       location: json['location'] ?? json['Location'],
       sport: json['sport'] ?? json['Sport'],
       description: json['description'] ?? json['Description'],
+      participants: json['participants'] ?? json['Participants'] ?? [],
     );
   }
+}
+
+
+class SG {
+  final String name;
+  final String mentor;
+  final String credits;
+  final String startdate;
+  final String status;
+  final String description;
+  final String fees;
+  final String img;
+  final String registrationCap;
+
+  SG({
+    this.name = '',
+    this.mentor = '',
+    this.credits = '',
+    this.startdate = '',
+    this.description = '',
+    this.fees = '',
+    this.img = '',
+    this.status = '',
+    this.registrationCap = '',
+  });
 }

@@ -3,30 +3,7 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 import 'package:intl/intl.dart';
-
-class SG {
-  final String name;
-  final String mentor;
-  final String credits;
-  final String startdate;
-  final String status;
-  final String description;
-  final String fees;
-  final String img;
-  final String registrationCap;
-
-  SG({
-    this.name = '',
-    this.mentor = '',
-    this.credits = '',
-    this.startdate = '',
-    this.description = '',
-    this.fees = '',
-    this.img = '',
-    this.status = '',
-    this.registrationCap = '',
-  });
-}
+import '../services/models.dart';
 
 class SGs extends StatelessWidget {
   @override
