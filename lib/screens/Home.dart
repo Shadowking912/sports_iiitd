@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,9 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: CustomColors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_currentIndex == 4
-                ? IconlyBold.folder
-                : IconlyLight.folder),
+            icon: Icon(
+                _currentIndex == 4 ? IconlyBold.folder : IconlyLight.folder),
             label: 'SGs',
             backgroundColor: CustomColors.black,
           ),
@@ -208,19 +208,38 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20,
             ),
-            Text(
-              'Upcoming Events',
-              style: GoogleFonts.poppins(
-                color: CustomColors.white,
-                fontSize: 23,
-                fontWeight: FontWeight.w500,
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Upcoming Events',
+                    style: GoogleFonts.poppins(
+                      color: CustomColors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  child: InkWell(
+                      onTap: () {},
+                      child: Text("View All",
+                          style: GoogleFonts.poppins(
+                              color: CustomColors.red,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300))),
+                )
+              ],
             ),
             Divider(
               color: CustomColors.red,
               endIndent: 140,
             ),
             UpcomingEvents(),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               'About Us',
               style: GoogleFonts.poppins(
@@ -260,7 +279,7 @@ class _HomePageState extends State<HomePage> {
               color: CustomColors.red,
               endIndent: 270,
             ),
-            Gallery(),
+            GallerySlider(),
           ],
         ),
       ),
@@ -473,7 +492,7 @@ Container eventTile() {
   );
 }
 
-class Gallery extends StatelessWidget {
+class GallerySlider extends StatelessWidget {
   final List<String> eventImages = [
     'assets/gallery/1.PNG',
     'assets/gallery/2.PNG', // Replace with actual image paths
@@ -484,22 +503,31 @@ class Gallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: eventImages.map((imagePath) {
-        return Container(
-          margin:
-              EdgeInsets.symmetric(vertical: 4), // Add spacing between images
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(6.0),
-            child: Image.asset(
-              imagePath,
-              width: double.infinity, // Adjust the width as needed
-              height: 200.0, // Adjust the height as needed
-              fit: BoxFit.cover, // Adjust the BoxFit as needed
-            ),
-          ),
-        );
-      }).toList(),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: CarouselSlider(
+        options: CarouselOptions(
+          height: 200.0,
+          autoPlay: true,
+          enlargeCenterPage: true,
+          viewportFraction: 0.83,
+          autoPlayInterval: Duration(seconds: 3),
+        ),
+        items: eventImages.map((path) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Image.asset(
+                  path,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 }
