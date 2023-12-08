@@ -1,17 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/history.dart';
 import 'package:sports_iiitd/screens/profile.dart';
 import 'package:sports_iiitd/screens/sg.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
+import 'package:expandable_text/expandable_text.dart';
 
 import '../common/colors.dart';
 import 'events.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -84,18 +86,18 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  User? user = FirebaseAuth.instance.currentUser;
+  // User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
+      padding: EdgeInsets.fromLTRB(15, 60, 15, 0),
       height: MediaQuery.of(context).size.height,
       color: CustomColors.black,
       width: MediaQuery.of(context).size.width,
@@ -107,290 +109,158 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Good ${goodWhat()} ${user!.displayName!.split(' ')[0]}!',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
-                    fontSize: 26,
-                  ),
-                ),
+                Text('Good ${goodWhat()} ${"Sanyam"}!',
+                    style: GoogleFonts.poppins(
+                        color: CustomColors.white.withOpacity(0.6),
+                        fontSize: 16)),
                 Image.asset(
-                  'assets/logo.png',
-                  height: 60,
-                  width: 60,
+                  'assets/sportscouncil_logo.png',
+                  height: 40,
+                  width: 40,
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             Row(
               children: [
                 Text(
                   'Discover ',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: CustomColors.white,
-                    fontSize: 24,
+                    fontSize: 23,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
                   'Sports',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: CustomColors.red,
-                    fontSize: 24,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  'Info and Event Updates!',
+                  style: GoogleFonts.poppins(
+                    color: CustomColors.white,
+                    fontSize: 23,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 15,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Container(
-                    // autogroupam9un7M (Y2Nkf18tQBB8LVVXFoAm9u)
-                    padding:
-                        EdgeInsets.fromLTRB(13 * 4, 18 * 4, 26 * 4, 17 * 4),
-                    width: 40 * 4,
-                    decoration: BoxDecoration(
-                      color: Color(0xffc1a86c),
-                      borderRadius: BorderRadius.circular(8 * 4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x3fc1a96d),
-                          offset: Offset(5 * 2, 2 * 4),
-                          blurRadius: 10 * 4,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    // autogroupam9un7M (Y2Nkf18tQBB8LVVXFoAm9u)
-                    padding:
-                        EdgeInsets.fromLTRB(13 * 4, 18 * 4, 26 * 4, 17 * 4),
-                    width: 40 * 4,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 204, 83, 83),
-                      borderRadius: BorderRadius.circular(8 * 4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(60, 255, 61, 27),
-                          offset: Offset(5 * 2, 2 * 4),
-                          blurRadius: 10 * 4,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    // autogroupam9un7M (Y2Nkf18tQBB8LVVXFoAm9u)
-                    padding:
-                        EdgeInsets.fromLTRB(13 * 4, 18 * 4, 26 * 4, 17 * 4),
-                    width: 40 * 4,
-                    decoration: BoxDecoration(
-                      color: Color(0xffc1a86c),
-                      borderRadius: BorderRadius.circular(8 * 4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x3fc1a96d),
-                          offset: Offset(5 * 2, 2 * 4),
-                          blurRadius: 10 * 4,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    // autogroupam9un7M (Y2Nkf18tQBB8LVVXFoAm9u)
-                    padding:
-                        EdgeInsets.fromLTRB(13 * 4, 18 * 4, 26 * 4, 17 * 4),
-                    width: 40 * 4,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 204, 83, 83),
-                      borderRadius: BorderRadius.circular(8 * 4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(60, 255, 61, 27),
-                          offset: Offset(5 * 2, 2 * 4),
-                          blurRadius: 10 * 4,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        // footballa4b (39:97)
-                        'Football',
-                        style: TextStyle(
-                          fontSize: 14 * 2,
-                          fontWeight: FontWeight.w600,
-                          height: 1.5 * 2 / 2,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                    ],
-                  ),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 193, 169, 109),
+                      imagePath: "assets/sports_icons/maki_soccer.png",
+                      sportsName: "Football",
+                      sportsDetail: "Spectacular goals & football fever!"),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 171, 52, 59),
+                      imagePath: "assets/sports_icons/maki_basketball.png",
+                      sportsName: "Basketball",
+                      sportsDetail: "Dunk into excitement!"),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 171, 52, 59),
+                      imagePath: "assets/sports_icons/maki_swimming.png",
+                      sportsName: "Swimming",
+                      sportsDetail: "Laps, dives and swimming waves."),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 193, 169, 109),
+                      imagePath: "assets/sports_icons/cricket.png",
+                      sportsName: "Cricket",
+                      sportsDetail: "Wickets fall, runs rise in cricket buzz"),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 193, 169, 109),
+                      imagePath: "assets/sports_icons/maki_soccer.png",
+                      sportsName: "Lawn Tennis",
+                      sportsDetail: "Aces, serves and tennis flairs!"),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 171, 52, 59),
+                      imagePath: "assets/sports_icons/maki_basketball.png",
+                      sportsName: "Badminton",
+                      sportsDetail: "Shuttles, rallies, badminton action!"),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 171, 52, 59),
+                      imagePath: "assets/sports_icons/maki_swimming.png",
+                      sportsName: "Squash",
+                      sportsDetail: "Rallies, volleys, squash intensity!"),
+                  sportsInfoTile(
+                      blockColor: Color.fromARGB(255, 193, 169, 109),
+                      imagePath: "assets/sports_icons/cricket.png",
+                      sportsName: "Table Tennis",
+                      sportsDetail: "Ping-pong finesse, rapid rallies!"),
                 ],
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               'Upcoming Events',
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color: CustomColors.white,
-                fontSize: 24,
+                fontSize: 23,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Divider(color: CustomColors.red),
-            SizedBox(
-              height: 5,
+            Divider(
+              color: CustomColors.red,
+              endIndent: 140,
             ),
-            SizedBox(
-              height: 150,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // autogrouphakdyiB (Y2Nnacbaf5ZsPiAiJuhaKd)
-                    padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                    height: double.infinity,
-
-                    child: Text(
-                      'Tuesday\nAugust 15th',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // autogroupvzsd1Py (Y2NnDdCZ9SXqsfxVfnvzsD)
-                    padding: EdgeInsets.all(12),
-                    width: 278,
-                    decoration: BoxDecoration(
-                      color: Color(0x4fab343b),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // intrafootballcompetition6gK (39:128)
-                        Text(
-                          'Intra Football Competition',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffffffff),
-                          ),
-                        ),
-
-                        Container(
-                          // loremipsumdolorsitametconsecte (39:129)
-                          margin:
-                              EdgeInsets.fromLTRB(0 * 2, 0 * 2, 4 * 2, 12 * 2),
-                          constraints: BoxConstraints(),
-                          child: Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus tristique ultricies.',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 7 * 2,
-                              fontWeight: FontWeight.w400,
-                              height: 1.5 * 2 / 2,
-                              color: Color(0xb2ffffff),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          // autogroup4xcftMH (Y2NnLCqvZh8mkHdmbn4XcF)
-                          width: double.infinity,
-                          height: 2 * 2,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // autogroupytbuER9 (Y2NnQTDr36Wb1LqugXYtBu)
-                                margin: EdgeInsets.fromLTRB(
-                                    0 * 2, 0 * 2, 9 * 2, 0 * 2),
-                                width: 7 * 2,
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Color(0xff7e141a),
-                                  borderRadius: BorderRadius.circular(2 * 20),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Read More',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontSize: 7 * 2,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.5 * 2 / 2,
-                                      color: Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                // pm900pmH8X (39:130)
-                                '7:00 PM - 9:00 PM',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 8 * 2,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.5 * 2 / 2,
-                                  color: Color(0xffffffff),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            UpcomingEvents(),
             Text(
               'About Us',
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color: CustomColors.white,
-                fontSize: 24,
+                fontSize: 22,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Divider(color: CustomColors.red),
-            SizedBox(
-              height: 10,
+            Divider(
+              color: CustomColors.red,
+              endIndent: 250,
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 5, 0, 15),
+              child: ExpandableText(
+                aboutUs(),
+                expandText: "Read More",
+                collapseText: "Read Less",
+                style: GoogleFonts.poppins(
+                    color: Color(0xb2ffffff),
+                    fontSize: 11,
+                    fontWeight: FontWeight.w300,
+                    letterSpacing: 0.3),
+                maxLines: 4,
+                linkColor: Color.fromARGB(255, 146, 35, 39),
+              ),
             ),
             Text(
               'Gallery',
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color: CustomColors.white,
-                fontSize: 24,
+                fontSize: 22,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Divider(color: CustomColors.red),
+            Divider(
+              color: CustomColors.red,
+              endIndent: 270,
+            ),
+            Gallery(),
           ],
         ),
       ),
@@ -407,4 +277,233 @@ String goodWhat() {
   } else {
     return 'Evening';
   }
+}
+
+Container sportsInfoTile(
+    {required Color blockColor,
+    required String imagePath,
+    required String sportsName,
+    required String sportsDetail}) {
+  return Container(
+      padding: EdgeInsets.fromLTRB(15, 20, 10, 10),
+      margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+      width: 134,
+      height: 176,
+      decoration: BoxDecoration(
+        color: blockColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    imagePath,
+                    width: 62,
+                    height: 62,
+                    color: CustomColors.white,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    sportsName,
+                    style: GoogleFonts.poppins(
+                        color: CustomColors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    sportsDetail,
+                    style: GoogleFonts.poppins(
+                      color: CustomColors.white,
+                      fontSize: 8,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                ]),
+          ),
+          SizedBox(
+            height: 7,
+          ),
+          InkWell(
+            onTap: () {
+              print('Read more clicked');
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Read more',
+                  style: GoogleFonts.poppins(
+                    color: CustomColors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 8,
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: CustomColors.black,
+                  size: 14,
+                ),
+              ],
+            ),
+          )
+        ],
+      ));
+}
+
+class UpcomingEvents extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [eventTile(), eventTile()],
+    );
+  }
+}
+
+Container eventTile() {
+  return Container(
+    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 100,
+          padding: EdgeInsets.fromLTRB(6, 3, 0, 3),
+          margin: EdgeInsets.fromLTRB(0, 7, 5, 0),
+          decoration: BoxDecoration(
+              border: Border(
+            left: BorderSide(
+              color: Color.fromARGB(
+                  255, 66, 27, 29), // Set the color of the left border
+              width: 2, // Set the width of the left border
+            ),
+          )),
+          child: Text(
+            'Wednesday\nSeptember 15th',
+            style: GoogleFonts.poppins(
+              fontSize: 9,
+              fontWeight: FontWeight.w400,
+              color: CustomColors.white,
+              letterSpacing: 0.2,
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(15),
+          width: 275,
+          height: 120,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 66, 27, 29),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Intra-College Football Tournament',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: CustomColors.white,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ExpandableText(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus tristique ultricies.',
+                expandText: "Read More",
+                collapseText: "Read Less",
+                style: GoogleFonts.poppins(
+                  fontSize: 7,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
+                  color: Color(0xb2ffffff),
+                ),
+                linkColor: CustomColors.black,
+                maxLines: 3,
+              ),
+              SizedBox(
+                height: 13,
+              ),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      print('Button pressed!');
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 22,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(color: CustomColors.red),
+                      child: Center(
+                        child: Text(
+                          'Register Now',
+                          style: GoogleFonts.poppins(
+                              fontSize: 7.5, color: CustomColors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    child: Text(
+                      "7:30 - 8:30PM",
+                      style: GoogleFonts.poppins(
+                          fontSize: 9,
+                          color: CustomColors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+class Gallery extends StatelessWidget {
+  final List<String> eventImages = [
+    'assets/gallery/1.PNG',
+    'assets/gallery/2.PNG', // Replace with actual image paths
+    'assets/gallery/3.PNG',
+    'assets/gallery/4.jpg',
+    // Add more image paths as needed
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: eventImages.map((imagePath) {
+        return Container(
+          margin:
+              EdgeInsets.symmetric(vertical: 4), // Add spacing between images
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(6.0),
+            child: Image.asset(
+              imagePath,
+              width: double.infinity, // Adjust the width as needed
+              height: 200.0, // Adjust the height as needed
+              fit: BoxFit.cover, // Adjust the BoxFit as needed
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+String aboutUs() {
+  return "At Sports Council, we're on a mission to amp up the sports culture at IIITD! 🚀 From epic intra-college tournaments like Karwaan, Desi-Adda and IPPL to our amazing inter-college sports fest - ASTRA, we're all about unleashing your athletic prowess. \n\nOffering self-growth courses in 10+ sports, we're not just playing; we're leveling up! Managing 15+ sports in the college campus, we keep the adrenaline pumping. Join us—where sports meet cool and self-growth is the game! 🏆🔥💪 \n\n#IIITDSportsCulture #GameOn #AthleticsEdge";
 }
