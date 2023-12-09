@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
-import '../services/models.dart';
 import '../services/db.dart';
 import '../common/dateUtil.dart';
 

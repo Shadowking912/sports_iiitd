@@ -170,8 +170,10 @@ Future<void> unregisterForEvent(Event event) async {
     await eventCollectionRef.doc(event.id).update({
       'participants': FieldValue.arrayRemove([userId])
     });
+    Student student = await getStudentDocument();
+    student.registeredEvents.removeWhere((element) => element['eventId'] == event.id);
     await userCollectionRef.doc(userId).update({
-      'registeredEvents': FieldValue.arrayRemove([event.id])
+      'registeredEvents': student.registeredEvents,
     });
   } catch (e) {
     throw e;
@@ -238,7 +240,8 @@ Future<void> requestIssueEquipment(String sport, String equipment) async {
   }
 }
 
-Future<void> issueEquipment(String sport, String equipment, String id, String userId) async {
+Future<void> issueEquipment(
+    String sport, String equipment, String id, String userId) async {
   // String userId = FirebaseAuth.instance.currentUser!.uid;
   String documentName =
       sport[0].toUpperCase() + sport.substring(1).toLowerCase();
@@ -312,6 +315,7 @@ Future<List> getAllFines() async {
   double totalFine = 0;
 
   student.fines.forEach((fine) {
+    if (!fine['paid'])
     totalFine += fine['amount'];
   });
 
@@ -462,6 +466,20 @@ Future<void> acceptReturnRequest(String id) async {
     var requestDoc = await collectionRef.doc(id).get();
     Map<String, dynamic> data = requestDoc.data()!;
     await returnEquipment(data['sport'], data['equipment'], data['requestId']);
+    String sport = data['sport'];
+    String documentName =
+        sport[0].toUpperCase() + sport.substring(1).toLowerCase();
+    var equipmentRef =
+        FirebaseFirestore.instance.collection('equipments').doc(documentName);
+    var equipmentDoc = await equipmentRef.get();
+    Map<String, dynamic> equipmentData = equipmentDoc.data()!;
+    List<dynamic> items = equipmentData['Items'];
+    items.forEach((element) {
+      if (element['Name'] == data['equipment']) {
+        element['Quantity'] += 1;
+      }
+    });
+    await equipmentRef.update({'Items': items});
     await collectionRef.doc(id).update({'status': 'approved'});
   } catch (e) {
     throw e;

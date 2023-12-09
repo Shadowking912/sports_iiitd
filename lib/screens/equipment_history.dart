@@ -11,7 +11,7 @@ import 'issued_equipments.dart';
 import 'request_status.dart';
 
 class Equipment extends StatelessWidget {
-  String SportName;
+  final String SportName;
   Equipment(this.SportName);
   @override
   Widget build(BuildContext context) {
@@ -244,7 +244,7 @@ class EquipmentFineActionBox extends StatelessWidget {
 }
 
 class StockAvailability extends StatefulWidget {
-  String sportName;
+  final String sportName;
   StockAvailability(this.sportName);
 
   @override

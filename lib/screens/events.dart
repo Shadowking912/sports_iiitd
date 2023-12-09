@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/dateUtil.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 import 'package:intl/intl.dart';
-import 'package:sports_iiitd/services/auth.dart';
 import 'package:sports_iiitd/services/db.dart';
 import '../services/models.dart';
 
