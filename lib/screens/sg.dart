@@ -3,26 +3,52 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 import 'package:intl/intl.dart';
+import '../services/db.dart';
 import '../services/models.dart';
 
 class SGs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(40, 60, 40, 0),
-        color: Colors.black,
-        child: Column(
-          children: [
-            customAppBar("SGS", context, logo: true, goBack: false),
-            CustomSearchBar(),
-            MonthlySGs(),
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: getStudentDocument(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              !snapshot.hasData) {
+            return Center(
+              child: Text("No events", style: TextStyle(color: Colors.white)),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            return Scaffold(
+              body: Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                padding: EdgeInsets.fromLTRB(12, 60, 12, 0),
+                color: Colors.black,
+                child: Column(
+                  children: [
+                    customAppBar("SGS", context, logo: true, goBack: false),
+                    CustomSearchBar(),
+                    MonthlySGs(),
+                  ],
+                ),
+              ),
+              floatingActionButton: snapshot.data!.isSuperAdmin
+                  ? FloatingActionButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/create_event');
+                      },
+                      tooltip: 'Create SG',
+                      child: const Icon(Icons.add),
+                    )
+                  : null,
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }
 
@@ -102,21 +128,32 @@ class _MonthlySGsState extends State<MonthlySGs> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding:
-              EdgeInsets.fromLTRB(0, 30, 20, 0), // Adjust the padding as needed
+              EdgeInsets.fromLTRB(0, 30, 16, 0), // Adjust the padding as needed
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(IconlyLight.arrow_left_2, color: Colors.white),
-              Text(
-                displayMonth, // Display the month name here
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    icon: Icon(IconlyLight.arrow_left_2, color: Colors.white),
+                    onPressed: () {},
+                  ),
+                  Text(
+                    displayMonth, // Display the month name here
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(IconlyLight.arrow_right_2, color: Colors.white),
+                    onPressed: () {},
+                  ),
+                ],
               ),
-              Icon(IconlyLight.arrow_right_2, color: Colors.white),
-              SizedBox(width: 60),
+              // SizedBox(width: 60),
               ElevatedButton(
                 onPressed: () {
                   // Add your button onPressed logic here
@@ -139,70 +176,69 @@ class _MonthlySGsState extends State<MonthlySGs> {
           ),
         ),
         Expanded(
-            child: ListView.builder(
-                itemCount: SGs.length,
-                itemBuilder: (context, index) {
-                  SG sg = SGs[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 3),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(IconlyBold.more_circle,
-                                color: const Color.fromARGB(255, 95, 22, 16)),
-                            Container(
-                              width: 500,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(sg.name,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold)),
-                                    Text("Start Date: " + sg.startdate,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                        )),
-                                    Text("Mentor: " + sg.mentor,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                        )),
-                                    Text("Status: " + sg.status,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                        )),
-                                    Text(sg.description,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 14,
-                                        )),
-                                  ]),
-                            ),
-                            SizedBox(width: 10),
-                            Image.asset(
-                              "assets/" + sg.img,
-                              width: 40.0,
-                              height: 60.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ]),
-                    ),
-                  );
-                })),
+          child: ListView.builder(
+            itemCount: SGs.length,
+            itemBuilder: (context, index) {
+              SG sg = SGs[index];
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 3),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(IconlyBold.more_circle,
+                          color: const Color.fromARGB(255, 95, 22, 16)),
+                      Container(
+                        width: 500,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(sg.name,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              Text("Start Date: " + sg.startdate,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 212, 209, 209),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18,
+                                  )),
+                              Text("Mentor: " + sg.mentor,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 212, 209, 209),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18,
+                                  )),
+                              Text("Status: " + sg.status,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 212, 209, 209),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18,
+                                  )),
+                              Text(sg.description,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 212, 209, 209),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 14,
+                                  )),
+                            ]),
+                      ),
+                      SizedBox(width: 10),
+                      Image.asset(
+                        "assets/" + sg.img,
+                        width: 40.0,
+                        height: 60.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ]),
     );
   }

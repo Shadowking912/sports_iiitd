@@ -8,6 +8,7 @@ import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/profile.dart';
 import 'package:sports_iiitd/screens/sg.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:sports_iiitd/screens/sport_info.dart';
 import 'package:sports_iiitd/services/db.dart';
 
 import '../common/colors.dart';
@@ -167,42 +168,42 @@ class _HomePageState extends State<HomePage> {
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/maki_soccer.png",
                       sportsName: "Football",
-                      sportsDetail: "Spectacular goals & football fever!"),
+                      sportsDetail: "Spectacular goals & football fever!", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_basketball.png",
                       sportsName: "Basketball",
-                      sportsDetail: "Dunk into excitement!"),
+                      sportsDetail: "Dunk into excitement!", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_swimming.png",
                       sportsName: "Swimming",
-                      sportsDetail: "Laps, dives and swimming waves."),
+                      sportsDetail: "Laps, dives and swimming waves.", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/cricket.png",
                       sportsName: "Cricket",
-                      sportsDetail: "Wickets fall, runs rise in cricket buzz"),
+                      sportsDetail: "Wickets fall, runs rise in cricket buzz", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/maki_soccer.png",
                       sportsName: "Lawn Tennis",
-                      sportsDetail: "Aces, serves and tennis flairs!"),
+                      sportsDetail: "Aces, serves and tennis flairs!", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_basketball.png",
                       sportsName: "Badminton",
-                      sportsDetail: "Shuttles, rallies, badminton action!"),
+                      sportsDetail: "Shuttles, rallies, badminton action!", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_swimming.png",
                       sportsName: "Squash",
-                      sportsDetail: "Rallies, volleys, squash intensity!"),
+                      sportsDetail: "Rallies, volleys, squash intensity!", context:context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/cricket.png",
                       sportsName: "Table Tennis",
-                      sportsDetail: "Ping-pong finesse, rapid rallies!"),
+                      sportsDetail: "Ping-pong finesse, rapid rallies!", context:context),
                 ],
               ),
             ),
@@ -303,7 +304,8 @@ Container sportsInfoTile(
     {required Color blockColor,
     required String imagePath,
     required String sportsName,
-    required String sportsDetail}) {
+    required String sportsDetail,
+    required BuildContext context}) {
   return Container(
       padding: EdgeInsets.fromLTRB(15, 20, 10, 10),
       margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -352,6 +354,11 @@ Container sportsInfoTile(
           InkWell(
             onTap: () {
               print('Read more clicked');
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SportInfo(
+                  sportsName,
+                ),
+              ));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

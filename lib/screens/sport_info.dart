@@ -10,9 +10,9 @@ import '../common/dateUtil.dart';
 import 'issued_equipments.dart';
 import 'request_status.dart';
 
-class Equipment extends StatelessWidget {
+class SportInfo extends StatelessWidget {
   String SportName;
-  Equipment(this.SportName);
+  SportInfo(this.SportName);
   @override
   Widget build(BuildContext context) {
     // var SportName;
