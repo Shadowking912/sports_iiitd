@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FineSummary extends StatefulWidget {
+  double fineAmount;
+  FineSummary(this.fineAmount);
   @override
   State<FineSummary> createState() => _FineSummaryState();
 }
 
 class _FineSummaryState extends State<FineSummary> {
-  double fineAmount = 354.56;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +31,7 @@ class _FineSummaryState extends State<FineSummary> {
               ),
             ),
             Text(
-              "₹ $fineAmount",
+              "₹ ${widget.fineAmount}",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w800,

@@ -34,12 +34,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.dark,
       ),
-      home: HomeScreen(),
+      home: LandingPage(),
       // add named routes
       routes: {
         '/home': (context) => HomeScreen(),
         // '/view_events': (context) => ViewEvents(),
-        '/sign_in': (context) => SignInScreen(),
+        '/sign_in': (context) => LandingPage(),
         '/create_profile': (context) => CreateProfile(),
         '/wrong_email': (context) => const WrongEmail(),
         '/create_event': (context) => CreateEvent(),

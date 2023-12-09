@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -27,10 +28,11 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>sports_iiitd</title>
   <link rel="manifest" href="manifest.json">
+  <meta name="google-signin-client_id" content="353337839676-5nbk1r5m76m9s82d7r2ene0m8rk5ke2j.apps.googleusercontent.com">
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -39,21 +41,36 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine().then(function (appRunner) {
             appRunner.runApp();
           });
         }
       });
     });
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAqGM1Urlqdm4Uc8Pd5gBuzfZ7oicCSCBE",
+      authDomain: "sportsiiitd.firebaseapp.com",
+      projectId: "sportsiiitd",
+      storageBucket: "sportsiiitd.appspot.com",
+      messagingSenderId: "353337839676",
+      appId: "1:353337839676:web:b5d576465e4b55f75ab339",
+      measurementId: "G-D0XXJBJ1NY"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </body>
+
 </html>

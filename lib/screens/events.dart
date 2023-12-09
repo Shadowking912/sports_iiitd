@@ -31,27 +31,33 @@ import '../services/models.dart';
 class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(12, 60, 12, 0),
-        color: Colors.black,
-        child: Column(
-          children: [
-            customAppBar("EVENTS", context, logo: true, goBack: false),
-            CustomSearchBar(),
-            MonthlyEvents(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/create_event');
-        },
-        tooltip: 'Create Event',
-        child: const Icon(Icons.add),
-      ),
+    return FutureBuilder(
+      future: getStudentDocument(),
+      builder: (context, snapshot) {
+        return Scaffold(
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.fromLTRB(12, 60, 12, 0),
+            color: Colors.black,
+            child: Column(
+              children: [
+                customAppBar("EVENTS", context, logo: true, goBack: false),
+                CustomSearchBar(),
+                MonthlyEvents(),
+              ],
+            ),
+          ),
+          floatingActionButton: snapshot.data!.isSuperAdmin ?
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/create_event');
+            },
+            tooltip: 'Create Event',
+            child: const Icon(Icons.add),
+          ) : null,
+        );
+      }
     );
   }
 }

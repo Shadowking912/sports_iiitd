@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sports_iiitd/common/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../services/auth.dart';
+import '../services/db.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -13,14 +17,49 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageView(
-      children: [landingScreen1(), landingScreen2(), landingScreen3()],
-      onPageChanged: (int page) {
-        setState(() {
-          currentPage = page;
-        });
-      },
-    ));
+      body: FutureBuilder(
+        future: isSignedIn(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data == true) {
+            return FutureBuilder(
+              future: checkIfUserDocExists(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data == true) {
+                    Future.delayed(Duration.zero, () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/home', (Route<dynamic> route) => false);
+                    });
+                    return Center(
+                      child: Text('You are signed in'),
+                    );
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/create_profile', (Route<dynamic> route) => false);
+                    return Center(
+                      child: Text('You are signed in'),
+                    );
+                  }
+                } else {
+                  return Center(
+                    child: Text('You are signed in'),
+                  );
+                }
+              },
+            );
+          } else {
+            return PageView(
+              children: [landingScreen1(), landingScreen2(), landingScreen3()],
+              onPageChanged: (int page) {
+                setState(() {
+                  currentPage = page;
+                });
+              },
+            );
+          }
+        },
+      ),
+    );
   }
 
   Widget landingScreen1() {
@@ -139,7 +178,25 @@ class _LandingPageState extends State<LandingPage> {
                 child: Column(
                   children: [
                     ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () async {
+                          User? user = await signInWithGoogle();
+                          if (!user!.email!.contains('iiitd.ac.in')) {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/wrong_email',
+                                (Route<dynamic> route) => false);
+                          } else {
+                            bool userDocExists = await checkIfUserDocExists();
+                            if (user != null) {
+                              if (!userDocExists) {
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/create_profile');
+                              } else {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    '/home', (Route<dynamic> route) => false);
+                              }
+                            }
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 126, 20, 26),
                             fixedSize: Size(320, 30),

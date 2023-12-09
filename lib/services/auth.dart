@@ -41,4 +41,3 @@ Future<void> signOut() async {
 User? getCurrentUser() {
   return _auth.currentUser;
 }
-

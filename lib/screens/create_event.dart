@@ -46,7 +46,7 @@ class _CreateEventState extends State<CreateEvent> {
                     ),
                     FormBuilderDateTimePicker(
                       name: 'date',
-                      inputType: InputType.date,
+                      inputType: InputType.both,
                       decoration: InputDecoration(
                         labelText: 'Event Date',
                       ),

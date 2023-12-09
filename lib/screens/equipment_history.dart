@@ -6,6 +6,10 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/services/db.dart';
 
+import '../common/dateUtil.dart';
+import 'issued_equipments.dart';
+import 'request_status.dart';
+
 class Equipment extends StatelessWidget {
   String SportName;
   Equipment(this.SportName);
@@ -164,11 +168,23 @@ class MyActions extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             EquipmentFineActionBox("Pay Fine", iconMap["plus"] ?? Icons.error,
-                "Complete your fine transaction"),
+                "Complete your fine transaction", () {}),
             EquipmentFineActionBox("Status", iconMap["swap"] ?? Icons.error,
-                "Check the status of your fines"),
-            EquipmentFineActionBox("Reports", iconMap["wallet"] ?? Icons.error,
-                "Check out your current reports"),
+                "Check the status of your issue/return requests", () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => RequestStatusScreen(),
+                ),
+              );
+            }),
+            EquipmentFineActionBox("Return Equipment", iconMap["wallet"] ?? Icons.error,
+                "Return your issued equipments", () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => IssuedEquipmentsScreen(),
+                    ),
+                  );
+                }),
           ],
         ),
       ],
@@ -180,13 +196,17 @@ class EquipmentFineActionBox extends StatelessWidget {
   final String boxTitle;
   final IconData iconName;
   final String description;
+  final Function onTap;
 
-  EquipmentFineActionBox(this.boxTitle, this.iconName, this.description);
+  EquipmentFineActionBox(
+      this.boxTitle, this.iconName, this.description, this.onTap);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          onTap();
+        },
         child: Container(
           height: 125,
           width: MediaQuery.of(context).size.width / 3 - 20,
@@ -223,9 +243,15 @@ class EquipmentFineActionBox extends StatelessWidget {
   }
 }
 
-class StockAvailability extends StatelessWidget {
+class StockAvailability extends StatefulWidget {
   String sportName;
   StockAvailability(this.sportName);
+
+  @override
+  State<StockAvailability> createState() => _StockAvailabilityState();
+}
+
+class _StockAvailabilityState extends State<StockAvailability> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -241,7 +267,7 @@ class StockAvailability extends StatelessWidget {
           ),
         ), // Adjust the height for the desired spacing
         FutureBuilder(
-          future: getEquipmentsBySport(sportName),
+          future: getEquipmentsBySport(widget.sportName),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -260,6 +286,8 @@ class StockAvailability extends StatelessWidget {
                   return StockBox(
                     snapshot.data![index]['Name'],
                     snapshot.data![index]['Quantity'],
+                    widget.sportName,
+                    setState,
                   );
                   // return Text("Hello");
                 },
@@ -276,13 +304,59 @@ class StockAvailability extends StatelessWidget {
 class StockBox extends StatelessWidget {
   final String boxTitle;
   final int quantity;
+  final String sportName;
+  final Function uparWaaleKaSetState;
 
-  StockBox(this.boxTitle, this.quantity);
+  StockBox(
+      this.boxTitle, this.quantity, this.sportName, this.uparWaaleKaSetState);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Request Issue of Equipment'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Quantity: 1'),
+                  SizedBox(height: 10),
+                  Text('Date of issue: ${getReadableDate(DateTime.now())}'),
+                  SizedBox(height: 10),
+                  Text('Time of issue: ${getReadableTime(DateTime.now())}'),
+                  SizedBox(height: 10),
+                  Text(
+                      'You can take the equipment after the request is approved'),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Cancel"),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            Center(child: CircularProgressIndicator()));
+                    // await issueEquipment(sportName, boxTitle);
+                    await requestIssueEquipment(sportName, boxTitle);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    uparWaaleKaSetState(() {});
+                  },
+                  child: Text("Issue"),
+                )
+              ],
+            ),
+          );
+        },
         child: Container(
           height: 125,
           width: MediaQuery.of(context).size.width / 3 - 20,

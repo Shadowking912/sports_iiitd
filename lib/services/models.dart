@@ -32,6 +32,8 @@ class Student {
   String favouriteSport;
   List registeredEvents = [];
   List fines = [];
+  List issuedEquipments = [];
+  bool isSuperAdmin = false;
 
   Student({
     required this.name,
@@ -43,6 +45,8 @@ class Student {
     required this.favouriteSport,
     this.registeredEvents = const [],
     this.fines = const [],
+    this.issuedEquipments = const [],
+    this.isSuperAdmin = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -56,6 +60,8 @@ class Student {
       'favouriteSport': favouriteSport,
       'registeredEvents': registeredEvents,
       'fines': fines,
+      'issuedEquipments': issuedEquipments,
+      'isSuperAdmin': isSuperAdmin,
     };
   }
 
@@ -70,6 +76,8 @@ class Student {
       favouriteSport: json['favouriteSport'] ?? json['Favourite Sport'],
       registeredEvents: json['registeredEvents'] ?? json['Registered Events'] ?? [],
       fines: json['fines'] ?? json['Fines'] ?? [],
+      issuedEquipments: json['issuedEquipments'] ?? json['Issued Equipments'] ?? [],
+      isSuperAdmin: json['isSuperAdmin'] ?? json['Is Super Admin'] ?? false,
     );
   }
 }

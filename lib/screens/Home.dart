@@ -2,14 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+import 'package:sports_iiitd/common/dateUtil.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
 import 'package:sports_iiitd/screens/history.dart';
 import 'package:sports_iiitd/screens/profile.dart';
 import 'package:sports_iiitd/screens/sg.dart';
 import 'package:sports_iiitd/screens/view_events.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:sports_iiitd/services/db.dart';
 
 import '../common/colors.dart';
+import '../services/models.dart';
 import 'events.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,9 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: CustomColors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(_currentIndex == 4
-                ? IconlyBold.folder
-                : IconlyLight.folder),
+            icon: Icon(
+                _currentIndex == 4 ? IconlyBold.folder : IconlyLight.folder),
             label: 'SGs',
             backgroundColor: CustomColors.black,
           ),
@@ -93,7 +95,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // User? user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Good ${goodWhat()} ${"Sanyam"}!',
+                Text('Good ${goodWhat()} ${user!.displayName!.split(' ')[0]}!',
                     style: GoogleFonts.poppins(
                         color: CustomColors.white.withOpacity(0.6),
                         fontSize: 16)),
@@ -356,23 +358,44 @@ Container sportsInfoTile(
       ));
 }
 
-class UpcomingEvents extends StatelessWidget {
+class UpcomingEvents extends StatefulWidget {
+  @override
+  State<UpcomingEvents> createState() => _UpcomingEventsState();
+}
+
+class _UpcomingEventsState extends State<UpcomingEvents> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [eventTile(), eventTile()],
+    return FutureBuilder(
+      future: getLatestEvents(2),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Column(
+            children: [
+              for (Event event in snapshot.data as List<Event>)
+                eventTile(event, user!.uid),
+            ],
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            color: CustomColors.red,
+          ),
+        );
+      },
     );
   }
 }
 
-Container eventTile() {
+Container eventTile(Event event, String uid) {
   return Container(
     margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 100,
+          // width: 100,
           padding: EdgeInsets.fromLTRB(6, 3, 0, 3),
           margin: EdgeInsets.fromLTRB(0, 7, 5, 0),
           decoration: BoxDecoration(
@@ -384,7 +407,7 @@ Container eventTile() {
             ),
           )),
           child: Text(
-            'Wednesday\nSeptember 15th',
+            getDayWithDate(event.date),
             style: GoogleFonts.poppins(
               fontSize: 9,
               fontWeight: FontWeight.w400,
@@ -395,8 +418,7 @@ Container eventTile() {
         ),
         Container(
           padding: EdgeInsets.all(15),
-          width: 275,
-          height: 120,
+          width: 265,
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 66, 27, 29),
             borderRadius: BorderRadius.circular(8),
@@ -405,7 +427,7 @@ Container eventTile() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Intra-College Football Tournament',
+                event.name + ' - ' + event.sport,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -416,7 +438,7 @@ Container eventTile() {
                 height: 10,
               ),
               ExpandableText(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis finibus tristique ultricies.',
+                event.description,
                 expandText: "Read More",
                 collapseText: "Read Less",
                 style: GoogleFonts.poppins(
@@ -434,18 +456,26 @@ Container eventTile() {
               Row(
                 children: [
                   InkWell(
-                    onTap: () {
-                      print('Button pressed!');
-                    },
+                    onTap: event.participants.contains(uid)
+                        ? null
+                        : () async {
+                            await registerForEvent(event);
+                          },
                     child: Container(
                       width: 80,
                       height: 22,
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(color: CustomColors.red),
+                      decoration: BoxDecoration(
+                          color: event.participants.contains(uid)
+                              ? CustomColors.red.withOpacity(0.3)
+                              : CustomColors.red,
+                          borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: Text(
-                          'Register Now',
+                          event.participants.contains(uid)
+                              ? 'Registered'
+                              : 'Register',
                           style: GoogleFonts.poppins(
                               fontSize: 7.5, color: CustomColors.white),
                         ),
@@ -456,7 +486,7 @@ Container eventTile() {
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                     child: Text(
-                      "7:30 - 8:30PM",
+                      getReadableTime(event.date),
                       style: GoogleFonts.poppins(
                           fontSize: 9,
                           color: CustomColors.white,
