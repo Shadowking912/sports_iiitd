@@ -74,9 +74,11 @@ class Student {
       phone: json['phone'] ?? json['Phone'],
       batch: json['batch'] ?? json['Batch'],
       favouriteSport: json['favouriteSport'] ?? json['Favourite Sport'],
-      registeredEvents: json['registeredEvents'] ?? json['Registered Events'] ?? [],
+      registeredEvents:
+          json['registeredEvents'] ?? json['Registered Events'] ?? [],
       fines: json['fines'] ?? json['Fines'] ?? [],
-      issuedEquipments: json['issuedEquipments'] ?? json['Issued Equipments'] ?? [],
+      issuedEquipments:
+          json['issuedEquipments'] ?? json['Issued Equipments'] ?? [],
       isSuperAdmin: json['isSuperAdmin'] ?? json['Is Super Admin'] ?? false,
     );
   }
@@ -117,7 +119,10 @@ class Event {
     return Event(
       id: json['id'] ?? json['Id'] ?? '',
       name: json['name'] ?? json['Name'],
-      date: json['date'] ?? json['Date'] ?? DateTime.fromMicrosecondsSinceEpoch(json['date'].microsecondsSinceEpoch),
+      date: json['date'] ??
+          json['Date'] ??
+          DateTime.fromMicrosecondsSinceEpoch(
+              json['date'].microsecondsSinceEpoch),
       location: json['location'] ?? json['Location'],
       sport: json['sport'] ?? json['Sport'],
       description: json['description'] ?? json['Description'],
@@ -126,6 +131,28 @@ class Event {
   }
 }
 
+class SportDetails {
+  // String id;
+  String name;
+  List<String> Coach;
+  String img;
+  List<String> practiceDays = [];
+  List<String> practiceTimings = [];
+  List<Student> team = [];
+  List<Event> events = [];
+  List<Student> Coordinators = [];
+
+  SportDetails({
+    required this.name,
+    this.Coach = const [],
+    this.img = "",
+    this.practiceDays = const [],
+    this.practiceTimings = const [],
+    this.team = const [],
+    this.events = const [],
+    this.Coordinators = const [],
+  });
+}
 
 class SG {
   final String name;

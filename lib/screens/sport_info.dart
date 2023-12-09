@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/colors.dart';
+import 'package:sports_iiitd/services/models.dart';
 
 class SportInfo extends StatelessWidget {
   final String SportName;
@@ -36,6 +37,7 @@ class SportInfo extends StatelessWidget {
 
 class SportDetails extends StatefulWidget {
   final String sportName;
+
   SportDetails({required this.sportName});
   @override
   State<SportDetails> createState() => _DetailsState();
@@ -46,18 +48,18 @@ class _DetailsState extends State<SportDetails> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 200,
+      height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
       color: CustomColors.black,
       child: Column(
         children: [
           Container(
-            height: 20,
+            height: 50,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 90, 87, 87),
+              color: Color.fromARGB(255, 53, 51, 51),
             ),
-            child: Row(
+            child: Column(
               children: [
                 Text(
                   "Coach : ",
@@ -67,38 +69,80 @@ class _DetailsState extends State<SportDetails> {
                     fontSize: 18,
                   ),
                 ),
-                // Add more widgets as needed
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                    ),
+                    itemCount: SportDetails.Coach.length,
+                    itemBuilder: (context, index) {
+                      return SportDetails.Coach[index];
+                    },
+                  ),
+                ),
               ],
             ),
           ),
-          //Expanded(
-          //       child: ListView.builder(
-          //         padding: EdgeInsets.zero,
-
-          //         // events.length,
-          //         itemBuilder: (context, index) {
-          //           Event event = snapshot.data![index];
-          //           // events[index];
-          //           return EventWidget(event: event, uparWaaleKaSetState: () {
-          //             setState(() {});
-          //           });
-          //         },
-          //       ),
-          //     );,
-          Text(
-            "Coordinator : ",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
+          SizedBox(height: 20),
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 53, 51, 51),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "Team Members : ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             ),
           ),
-          Text(
-            "Events : ",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
+          SizedBox(height: 20),
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 53, 51, 51),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "Coordinators : ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 53, 51, 51),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "Events : ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
