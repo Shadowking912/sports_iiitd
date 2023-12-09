@@ -3,7 +3,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/services/models.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import '../services/db.dart';
 
 class CreateEvent extends StatefulWidget {

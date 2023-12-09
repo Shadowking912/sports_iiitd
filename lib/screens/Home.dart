@@ -5,10 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/dateUtil.dart';
 import 'package:sports_iiitd/screens/equipments.dart';
-import 'package:sports_iiitd/screens/history.dart';
 import 'package:sports_iiitd/screens/profile.dart';
 import 'package:sports_iiitd/screens/sg.dart';
-import 'package:sports_iiitd/screens/view_events.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:sports_iiitd/services/db.dart';
 

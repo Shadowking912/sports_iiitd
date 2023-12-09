@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FineSummary extends StatefulWidget {
-  double fineAmount;
+  final double fineAmount;
   FineSummary(this.fineAmount);
   @override
   State<FineSummary> createState() => _FineSummaryState();
