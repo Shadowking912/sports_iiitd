@@ -34,6 +34,7 @@ class Student {
   List fines = [];
   List issuedEquipments = [];
   bool isSuperAdmin = false;
+  List registeredSGs = [];
 
   Student({
     required this.name,
@@ -46,6 +47,7 @@ class Student {
     this.registeredEvents = const [],
     this.fines = const [],
     this.issuedEquipments = const [],
+    this.registeredSGs = const [],
     this.isSuperAdmin = false,
   });
 
@@ -62,6 +64,7 @@ class Student {
       'fines': fines,
       'issuedEquipments': issuedEquipments,
       'isSuperAdmin': isSuperAdmin,
+      'registeredSGs': registeredSGs,
     };
   }
 
@@ -74,10 +77,13 @@ class Student {
       phone: json['phone'] ?? json['Phone'],
       batch: json['batch'] ?? json['Batch'],
       favouriteSport: json['favouriteSport'] ?? json['Favourite Sport'],
-      registeredEvents: json['registeredEvents'] ?? json['Registered Events'] ?? [],
+      registeredEvents:
+          json['registeredEvents'] ?? json['Registered Events'] ?? [],
       fines: json['fines'] ?? json['Fines'] ?? [],
-      issuedEquipments: json['issuedEquipments'] ?? json['Issued Equipments'] ?? [],
+      issuedEquipments:
+          json['issuedEquipments'] ?? json['Issued Equipments'] ?? [],
       isSuperAdmin: json['isSuperAdmin'] ?? json['Is Super Admin'] ?? false,
+      registeredSGs: json['registeredSGs'] ?? json['Registered SGs'] ?? [],
     );
   }
 }
@@ -117,7 +123,10 @@ class Event {
     return Event(
       id: json['id'] ?? json['Id'] ?? '',
       name: json['name'] ?? json['Name'],
-      date: json['date'] ?? json['Date'] ?? DateTime.fromMicrosecondsSinceEpoch(json['date'].microsecondsSinceEpoch),
+      date: json['date'] ??
+          json['Date'] ??
+          DateTime.fromMicrosecondsSinceEpoch(
+              json['date'].microsecondsSinceEpoch),
       location: json['location'] ?? json['Location'],
       sport: json['sport'] ?? json['Sport'],
       description: json['description'] ?? json['Description'],
@@ -126,27 +135,48 @@ class Event {
   }
 }
 
-
 class SG {
+  String id;
   final String name;
   final String mentor;
   final String credits;
-  final String startdate;
-  final String status;
+  final DateTime deadline;
   final String description;
-  final String fees;
-  final String img;
-  final String registrationCap;
+  List participants = [];
 
   SG({
+    this.id = '',
     this.name = '',
     this.mentor = '',
     this.credits = '',
-    this.startdate = '',
+    required this.deadline,
     this.description = '',
-    this.fees = '',
-    this.img = '',
-    this.status = '',
-    this.registrationCap = '',
+    this.participants = const [],
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'mentor': mentor,
+      'credits': credits,
+      'deadline': deadline,
+      'description': description,
+      'participants': participants,
+    };
+  }
+
+  static SG fromJson(Map<String, dynamic> json) {
+    return SG(
+      id: json['id'] ?? json['Id'] ?? '',
+      name: json['name'] ?? json['Name'],
+      mentor: json['mentor'] ?? json['Mentor'],
+      credits: json['credits'] ?? json['Credits'],
+      deadline: json['deadline'] ??
+          json['Deadline'] ??
+          DateTime.fromMicrosecondsSinceEpoch(
+              json['deadline'].microsecondsSinceEpoch),
+      description: json['description'] ?? json['Description'],
+      participants: json['participants'] ?? json['Participants'] ?? [],
+    );
+  }
 }

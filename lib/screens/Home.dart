@@ -355,7 +355,7 @@ Container sportsInfoTile(
             onTap: () {
               print('Read more clicked');
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => SportInfo(
+                builder: (context) => Sport(
                   sportsName,
                 ),
               ));

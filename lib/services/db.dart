@@ -171,7 +171,8 @@ Future<void> unregisterForEvent(Event event) async {
       'participants': FieldValue.arrayRemove([userId])
     });
     Student student = await getStudentDocument();
-    student.registeredEvents.removeWhere((element) => element['eventId'] == event.id);
+    student.registeredEvents
+        .removeWhere((element) => element['eventId'] == event.id);
     await userCollectionRef.doc(userId).update({
       'registeredEvents': student.registeredEvents,
     });
@@ -315,8 +316,7 @@ Future<List> getAllFines() async {
   double totalFine = 0;
 
   student.fines.forEach((fine) {
-    if (!fine['paid'])
-    totalFine += fine['amount'];
+    if (!fine['paid']) totalFine += fine['amount'];
   });
 
   return [totalFine, student.fines];
@@ -537,6 +537,65 @@ Future<List> getUnpaidFines() async {
     List fines = student.fines;
     fines = fines.where((element) => !element['paid']).toList();
     return fines;
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<String> createSG(SG sg) async {
+  try {
+    var collectionRef = FirebaseFirestore.instance.collection('sgs');
+    sg.id = collectionRef.doc().id;
+    await collectionRef.doc(sg.id).set(sg.toJson());
+    return sg.id;
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<List<SG>> getRunningSGs() async {
+  try {
+    var collectionRef = FirebaseFirestore.instance.collection('sgs');
+    var snapshot = await collectionRef.where('deadline', isGreaterThan: DateTime.now()).get();
+    List<SG> sgs = [];
+    snapshot.docs.forEach((doc) {
+      Map<String, dynamic> data = doc.data();
+      data['deadline'] = (data['deadline'] as Timestamp).toDate();
+      data['participants'] = data['participants'] ?? [];
+      data['id'] = doc.id;
+      sgs.add(SG.fromJson(data));
+    });
+    return sgs;
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<void> registerForSG(SG sg) async {
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+  try {
+    var collectionRef = FirebaseFirestore.instance.collection('sgs');
+    await collectionRef.doc(sg.id).update({
+      'participants': FieldValue.arrayUnion([userId])
+    });
+    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      'registeredSGs': FieldValue.arrayUnion([sg.id])
+    });
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<void> unregisterForSG(SG sg) async {
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+  try {
+    var collectionRef = FirebaseFirestore.instance.collection('sgs');
+    await collectionRef.doc(sg.id).update({
+      'participants': FieldValue.arrayRemove([userId])
+    });
+    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      'registeredSGs': FieldValue.arrayRemove([sg.id])
+    });
   } catch (e) {
     throw e;
   }
