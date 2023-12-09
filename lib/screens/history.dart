@@ -48,7 +48,7 @@ class History extends StatelessWidget {
 }
 
 class EquipmentHistory extends StatelessWidget {
-  Student student;
+  final Student student;
   EquipmentHistory({required this.student});
   @override
   Widget build(BuildContext context) {

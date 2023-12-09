@@ -18,7 +18,13 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
     "TABLE TENNIS",
     "VOLLEYBALL",
     "TENNIS",
-    "CRICKET"
+    "CRICKET",
+    "POOL & SNOOKER",
+    "BADMINTON",
+    "SQUASH",
+    "SWIMMING",
+    "GYM",
+    "GENERAL",
   ];
 
   List<String> filteredSports = [];

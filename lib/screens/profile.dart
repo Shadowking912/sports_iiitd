@@ -4,7 +4,6 @@ import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/services/auth.dart';
 import 'package:sports_iiitd/services/db.dart';
-import 'package:sports_iiitd/services/models.dart';
 
 import '../common/colors.dart';
 import 'manage_requests.dart';

@@ -4,8 +4,8 @@ import 'package:sports_iiitd/common/dateUtil.dart';
 import '../../services/db.dart';
 
 class FineHistory extends StatelessWidget {
-  List<dynamic> fineHistory;
-  Function refresh;
+  final List<dynamic> fineHistory;
+  final Function refresh;
   FineHistory(this.fineHistory, this.refresh);
   @override
   Widget build(BuildContext context) {
