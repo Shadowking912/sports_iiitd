@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sports_iiitd/common/colors.dart';
 
 import '../services/auth.dart';
 import "package:flutter_feather_icons/flutter_feather_icons.dart";
@@ -11,50 +13,58 @@ class WrongEmail extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            FeatherIcons.arrowLeft,
-            weight: 700,
-            size: 50,
-            color: Colors.red,
-          ),
-          onPressed: () {
-            Navigator.of(context)
-                .pushReplacementNamed('/sign_in'); // Example: Navigate back
-          },
-        ),
         backgroundColor:
             Colors.transparent, // Set the app bar background to transparent
         elevation: 0, // Remove the shadow
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(48.0, 32.0, 48.0, 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(
           margin: EdgeInsets.all(20.0), // Add margin on the lower side
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                FeatherIcons.userX,
-                size: 60,
-                color: Colors.white,
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Icon(
+                  Icons.error_outline,
+                  size: 60,
+                  color: Colors.white,
+                ),
               ),
               Text(
-                'Oops! You logged in with a non IIIT Delhi Google account. This app is only for IIIT Delhi students.',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 25,
+                'Oops! You logged in with a Non IIIT Delhi Google account.',
+                style: GoogleFonts.poppins(
+                  color: CustomColors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  await signOut();
-                  Navigator.of(context).pushReplacementNamed('/sign_in');
-                },
-                child: Text('Sign out', style: TextStyle(color: Colors.red)),
+              Text(
+                '\nThis app is only for IIIT Delhi students.',
+                style: GoogleFonts.poppins(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                child: ElevatedButton(
+                  autofocus: true,
+                  onPressed: () async {
+                    await signOut();
+                    Navigator.of(context).pushReplacementNamed('/sign_in');
+                  },
+                  child: Text('Sign out',
+                      style: GoogleFonts.poppins(
+                          color: CustomColors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500)),
+                ),
               )
             ],
           ),
