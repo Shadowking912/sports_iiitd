@@ -1,209 +1,275 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
+import 'package:sports_iiitd/common/dateUtil.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 import 'package:intl/intl.dart';
+import '../services/db.dart';
 import '../services/models.dart';
+import 'register_sg.dart';
 
-class SGs extends StatelessWidget {
+class SGs extends StatefulWidget {
+  @override
+  State<SGs> createState() => _SGsState();
+}
+
+class _SGsState extends State<SGs> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(40, 60, 40, 0),
-        color: Colors.black,
-        child: Column(
-          children: [
-            customAppBar("SGS", context, logo: true, goBack: false),
-            CustomSearchBar(),
-            MonthlySGs(),
-          ],
+    return FutureBuilder(
+        future: getStudentDocument(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              !snapshot.hasData) {
+            return Center(
+              child: Text("No sgs", style: TextStyle(color: Colors.white)),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            return Scaffold(
+              body: Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                padding: EdgeInsets.fromLTRB(12, 60, 12, 0),
+                color: Colors.black,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      customAppBar("SGS", context, logo: true, goBack: false),
+                      FutureBuilder(
+                          future: getRunningSGs(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                    ConnectionState.done &&
+                                !snapshot.hasData) {
+                              return Center(
+                                child: Text("No SGs",
+                                    style: TextStyle(color: Colors.white)),
+                              );
+                            } else if (snapshot.connectionState ==
+                                    ConnectionState.done &&
+                                snapshot.hasData) {
+                              List<SG> sgs = snapshot.data!;
+                              return Column(
+                                children: [
+                                  CustomSearchBar(onChanged: (value) {
+                                    // setState(() {
+                                      sgs = snapshot.data!
+                                          .where((element) => element.name
+                                              .toLowerCase()
+                                              .contains(value.toLowerCase()))
+                                          .toList();
+                                    // });
+                                  }),
+                                  MonthlySGs(SGs: sgs),
+                                ],
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }),
+                    ],
+                  ),
+                ),
+              ),
+              floatingActionButton: snapshot.data!.isSuperAdmin
+                  ? FloatingActionButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CreateSG()));
+                      },
+                      tooltip: 'Create SG',
+                      child: const Icon(Icons.add),
+                    )
+                  : null,
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
+  }
+}
+
+class MonthlySGs extends StatefulWidget {
+  List<SG> SGs = [];
+  MonthlySGs({required this.SGs});
+  @override
+  State<MonthlySGs> createState() => _MonthlySGsState();
+}
+
+class _MonthlySGsState extends State<MonthlySGs> {
+  @override
+  Widget build(BuildContext context) {
+    List<SG> SGs = widget.SGs;
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: Expanded(
+        child: ListView.builder(
+          itemCount: SGs.length,
+          itemBuilder: (context, index) {
+            SG sg = SGs[index];
+            return SgWidget(
+                sg: sg,
+                uparWaaleKaSetState: () {
+                  setState(() {});
+                });
+          },
         ),
       ),
     );
   }
 }
 
-class MonthlySGs extends StatefulWidget {
+class SgWidget extends StatefulWidget {
+  SgWidget({
+    super.key,
+    required this.sg,
+    required this.uparWaaleKaSetState,
+  });
+
+  final SG sg;
+  final Function uparWaaleKaSetState;
+
   @override
-  State<MonthlySGs> createState() => _MonthlySGsState();
+  State<SgWidget> createState() => _SgWidgetState();
 }
 
-class _MonthlySGsState extends State<MonthlySGs> {
-  final Map<String, List<SG>> SGsByMonth = {
-    "January": [
-      SG(name: "SG 1", description: "Description 1"),
-      SG(name: "SG 2", description: "Description 2"),
-      SG(name: "SG 3", description: "Description 3"),
-    ],
-    "February": [
-      SG(name: "SG 4", description: "Description 4"),
-      SG(name: "SG 5", description: "Description 5"),
-    ],
-    "March": [
-      SG(name: "SG 6", description: "Description 6"),
-      SG(name: "SG 7", description: "Description 7"),
-      SG(name: "SG 8", description: "Description 8"),
-      SG(name: "SG 9", description: "Description 9"),
-    ],
-    "November": [
-      SG(
-          name: "Football SG",
-          mentor: "Sanyam Goyal",
-          description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
-          startdate: "28/12/2023",
-          status: "Open",
-          credits: "1",
-          img: "SG1.jpg"),
-      SG(
-          name: "Squash Intra",
-          startdate: "8/11/2023",
-          status: "Ongoing",
-          credits: "1",
-          mentor: "Yuvraj Singh",
-          description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
-          img: "SG2.jpg"),
-      SG(
-          name: "Badminton Intra",
-          startdate: "09/10/2023",
-          status: "Ongoing",
-          credits: "2",
-          mentor: "Gurmehak kaur",
-          description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
-          img: "SG3.jpg"),
-      SG(
-          name: "Tennis Intra",
-          startdate: "08/09/2023",
-          status: "Completed",
-          credits: "1",
-          mentor: "Aayush Singh",
-          description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
-          img: "SG4.jpg"),
-    ],
-  };
+class _SgWidgetState extends State<SgWidget> {
+  final User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    DateTime currentDate = DateTime.now();
-    String currentMonth =
-        DateFormat('MMMM').format(currentDate); // This will return "November"
-    // print(currentMonth);
-    String currentYear = DateFormat('yyyy').format(currentDate);
-    String displayMonth = currentMonth + ", " + currentYear;
-    List<SG> SGs = SGsByMonth[currentMonth] ?? [];
-
-    return Expanded(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding:
-              EdgeInsets.fromLTRB(0, 30, 20, 0), // Adjust the padding as needed
+    // print(user);
+    return Dismissible(
+      key: Key(widget.sg.id),
+      direction: widget.sg.participants.contains(user!.uid)
+          ? DismissDirection.endToStart
+          : DismissDirection.startToEnd,
+      confirmDismiss: (direction) async {
+        print("object");
+        if (direction == DismissDirection.endToStart) {
+          print("swiped right");
+          await unregisterForSG(widget.sg);
+          widget.sg.participants.remove(user!.uid);
+          widget.uparWaaleKaSetState();
+        } else {
+          print("swiped left");
+          await registerForSG(widget.sg);
+          widget.sg.participants.add(user!.uid);
+          widget.uparWaaleKaSetState();
+        }
+        return false;
+      },
+      background: Container(
+        color: widget.sg.participants.contains(user!.uid)
+            ? Colors.red
+            : Colors.green,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: widget.sg.participants.contains(user!.uid)
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             children: [
-              Icon(IconlyLight.arrow_left_2, color: Colors.white),
+              Icon(
+                widget.sg.participants.contains(user!.uid)
+                    ? Icons.delete
+                    : Icons.add,
+                color: Colors.white,
+              ),
               Text(
-                displayMonth, // Display the month name here
+                widget.sg.participants.contains(user!.uid)
+                    ? "Unregister"
+                    : "Register",
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-              ),
-              Icon(IconlyLight.arrow_right_2, color: Colors.white),
-              SizedBox(width: 60),
-              ElevatedButton(
-                onPressed: () {
-                  // Add your button onPressed logic here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 95, 22, 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        8.0), // Adjust the border radius as needed
-                  ),
-                  padding: EdgeInsets.all(16.0),
-                ),
-                child: Icon(
-                  IconlyLight.calendar,
-                  color: Colors.white,
-                  size: 24.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
         ),
-        Expanded(
-            child: ListView.builder(
-                itemCount: SGs.length,
-                itemBuilder: (context, index) {
-                  SG sg = SGs[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 3),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(IconlyBold.more_circle,
-                                color: const Color.fromARGB(255, 95, 22, 16)),
-                            Container(
-                              width: 500,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(sg.name,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold)),
-                                    Text("Start Date: " + sg.startdate,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                        )),
-                                    Text("Mentor: " + sg.mentor,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                        )),
-                                    Text("Status: " + sg.status,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                        )),
-                                    Text(sg.description,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 212, 209, 209),
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 14,
-                                        )),
-                                  ]),
-                            ),
-                            SizedBox(width: 10),
-                            Image.asset(
-                              "assets/" + sg.img,
-                              width: 40.0,
-                              height: 60.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ]),
+      ),
+      onDismissed: (DismissDirection direction) async {},
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        padding: EdgeInsets.symmetric(vertical: 16.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(IconlyBold.more_circle,
+                    color: const Color.fromARGB(255, 95, 22, 16)),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.sg.name + " - " + widget.sg.credits + " credits",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        getReadableDate(widget.sg.deadline),
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 212, 209, 209),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        widget.sg.description,
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 212, 209, 209),
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 6),
+                Image.asset(
+                  "assets/" + 'logo.png',
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  fit: BoxFit.cover,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return Image.asset(
+                      "assets/logo.png",
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ],
+            ),
+            widget.sg.participants.contains(user!.uid)
+                ? Container(
+                    height: 10,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.green.shade800, Colors.transparent],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        // stops: [0.3, 0.8],
+                      ),
                     ),
-                  );
-                })),
-      ]),
+                  )
+                : Divider(),
+          ],
+        ),
+      ),
     );
   }
 }

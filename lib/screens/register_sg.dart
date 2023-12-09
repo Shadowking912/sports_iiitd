@@ -44,24 +44,37 @@ class _CreateSGState extends State<CreateSG> {
                       ]),
                       initialValue: sg?.name ?? '',
                     ),
-                    // FormBuilderDateTimePicker(
-                    //   name: 'date',
-                    //   inputType: InputType.both,
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Start Date',
-                    //   ),
-                    //   style: TextStyle(
-                    //     color: Colors.white,
-                    //   ),
-                    //   validator: FormBuilderValidators.compose([
-                    //     FormBuilderValidators.required(),
-                    //   ]),
-                    //   initialValue: sg?.startdate,
-                    // ),
+                    FormBuilderDateTimePicker(
+                      name: 'deadline',
+                      inputType: InputType.date,
+                      decoration: InputDecoration(
+                        labelText: 'Deadline Date',
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                      ]),
+                      initialValue: sg?.deadline,
+                    ),
                     FormBuilderTextField(
                       name: 'credits',
                       decoration: InputDecoration(
                         labelText: 'SG Credits',
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                      ]),
+                      initialValue: sg?.name ?? '',
+                    ),
+                    FormBuilderTextField(
+                      name: 'mentor',
+                      decoration: InputDecoration(
+                        labelText: 'SG Mentor',
                       ),
                       style: TextStyle(
                         color: Colors.white,
@@ -100,23 +113,17 @@ class _CreateSGState extends State<CreateSG> {
                       initialValue: sg?.description ?? '',
                     ),
                     SizedBox(height: 16.0),
-                    // ElevatedButton(
-                    //   onPressed: () async {
-                    //     if (_formKey.currentState!.saveAndValidate()) {
-                    //       sg sgForm =
-                    //           sg?.fromJson(_formKey.currentState!.value);
-                    //       if (sg != null) {
-                    //         sgForm.id = sg.id;
-                    //         await editsg(sgForm);
-                    //         Navigator.pop(context, sgForm);
-                    //       } else {
-                    //         sgForm.id = await createsg(sgForm);
-                    //         Navigator.pop(context, sgForm);
-                    //       }
-                    //     }
-                    //   },
-                    //   child: Text(sg == null ? 'Create' : 'Update'),
-                    // ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          SG sgForm = SG.fromJson(
+                            _formKey.currentState!.value);
+                          sgForm.id = await createSG(sgForm);
+                          Navigator.pop(context, sgForm);
+                        }
+                      },
+                      child: Text(sg == null ? 'Create' : 'Update'),
+                    ),
                   ],
                 ),
               ),
