@@ -6,16 +6,16 @@ import 'package:sports_iiitd/services/models.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import '../services/db.dart';
 
-class CreateEvent extends StatefulWidget {
+class CreateSG extends StatefulWidget {
   @override
-  _CreateEventState createState() => _CreateEventState();
+  _CreateSGState createState() => _CreateSGState();
 }
 
-class _CreateEventState extends State<CreateEvent> {
+class _CreateSGState extends State<CreateSG> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
-    final Event? event = ModalRoute.of(context)!.settings.arguments as Event?;
+    final SG? sg = ModalRoute.of(context)!.settings.arguments as SG?;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -42,22 +42,22 @@ class _CreateEventState extends State<CreateEvent> {
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
-                      initialValue: event?.name ?? '',
+                      initialValue: sg?.name ?? '',
                     ),
-                    FormBuilderDateTimePicker(
-                      name: 'date',
-                      inputType: InputType.both,
-                      decoration: InputDecoration(
-                        labelText: 'Start Date',
-                      ),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                      ]),
-                      initialValue: event?.date,
-                    ),
+                    // FormBuilderDateTimePicker(
+                    //   name: 'date',
+                    //   inputType: InputType.both,
+                    //   decoration: InputDecoration(
+                    //     labelText: 'Start Date',
+                    //   ),
+                    //   style: TextStyle(
+                    //     color: Colors.white,
+                    //   ),
+                    //   validator: FormBuilderValidators.compose([
+                    //     FormBuilderValidators.required(),
+                    //   ]),
+                    //   initialValue: sg?.startdate,
+                    // ),
                     FormBuilderTextField(
                       name: 'credits',
                       decoration: InputDecoration(
@@ -69,23 +69,23 @@ class _CreateEventState extends State<CreateEvent> {
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
-                      initialValue: event?.location ?? '',
+                      initialValue: sg?.name ?? '',
                     ),
-                    FormBuilderDropdown(
-                      name: 'sport',
-                      items: sportsList
-                          .map((sport) => DropdownMenuItem(
-                              value: sport, child: Text(sport)))
-                          .toList(),
-                      decoration: InputDecoration(labelText: 'Sport'),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      validator: FormBuilderValidators.compose(
-                        [FormBuilderValidators.required()],
-                      ),
-                      initialValue: event?.sport ?? '',
-                    ),
+                    // FormBuilderDropdown(
+                    //   name: 'sport',
+                    //   items: sportsList
+                    //       .map((sport) => DropdownMenuItem(
+                    //           value: sport, child: Text(sport)))
+                    //       .toList(),
+                    //   decoration: InputDecoration(labelText: 'Sport'),
+                    //   style: TextStyle(
+                    //     color: Colors.white,
+                    //   ),
+                    //   validator: FormBuilderValidators.compose(
+                    //     [FormBuilderValidators.required()],
+                    //   ),
+                    //   initialValue: sg?.sport ?? '',
+                    // ),
                     FormBuilderTextField(
                       name: 'description',
                       decoration: InputDecoration(
@@ -97,26 +97,26 @@ class _CreateEventState extends State<CreateEvent> {
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
-                      initialValue: event?.description ?? '',
+                      initialValue: sg?.description ?? '',
                     ),
                     SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.saveAndValidate()) {
-                          Event eventForm =
-                              Event.fromJson(_formKey.currentState!.value);
-                          if (event != null) {
-                            eventForm.id = event.id;
-                            await editEvent(eventForm);
-                            Navigator.pop(context, eventForm);
-                          } else {
-                            eventForm.id = await createEvent(eventForm);
-                            Navigator.pop(context, eventForm);
-                          }
-                        }
-                      },
-                      child: Text(event == null ? 'Create' : 'Update'),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () async {
+                    //     if (_formKey.currentState!.saveAndValidate()) {
+                    //       sg sgForm =
+                    //           sg?.fromJson(_formKey.currentState!.value);
+                    //       if (sg != null) {
+                    //         sgForm.id = sg.id;
+                    //         await editsg(sgForm);
+                    //         Navigator.pop(context, sgForm);
+                    //       } else {
+                    //         sgForm.id = await createsg(sgForm);
+                    //         Navigator.pop(context, sgForm);
+                    //       }
+                    //     }
+                    //   },
+                    //   child: Text(sg == null ? 'Create' : 'Update'),
+                    // ),
                   ],
                 ),
               ),
