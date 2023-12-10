@@ -104,6 +104,7 @@ class _ManageRequestsState extends State<ManageRequests> {
                           return ListView.builder(
                             padding: EdgeInsets.only(top: 0),
                             shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return RequestStatusBox(
@@ -299,7 +300,7 @@ class RequestStatusBox extends StatelessWidget {
                                                                           actions: [
                                                                             TextButton(
                                                                               onPressed: () async {
-                                                                                await fineStudent(equipmentName, sportName, fineAmount);
+                                                                                await fineStudent(equipmentName, sportName, fineAmount, userId);
                                                                                 Navigator.pop(context);
                                                                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                                                                   content: Text('User fined successfully!'),

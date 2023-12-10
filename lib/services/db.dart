@@ -366,10 +366,8 @@ Future<List> getUserIssueRequests() async {
 Future<List> getUserIssuedEquipments() async {
   try {
     Student student = await getStudentDocument();
-    List requests = await getUserReturnRequests();
-    List requestIds = requests.map((e) => e['requestId']).toList();
     List issuedEquipments = student.issuedEquipments
-        .where((element) => !requestIds.contains(element['requestId']))
+        .where((element) => !element['returned'])
         .toList();
     return issuedEquipments;
   } catch (e) {
@@ -506,15 +504,16 @@ Future<List> getAdminReturnRequests() async {
       data['date'] = data['date'].toDate();
       requests.add(data);
     });
+    requests.sort((a, b) => a['status'] == 'pending' ? -1 : 1);
     return requests;
   } catch (e) {
     throw e;
   }
 }
 
-Future<void> fineStudent(String equipment, String sport, int amount) async {
+Future<void> fineStudent(
+    String equipment, String sport, int amount, String userId) async {
   try {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
     var collectionRef = FirebaseFirestore.instance.collection('users');
     var userDoc = await collectionRef.doc(userId).get();
     Map<String, dynamic> data = userDoc.data()!;
@@ -556,7 +555,9 @@ Future<String> createSG(SG sg) async {
 Future<List<SG>> getRunningSGs() async {
   try {
     var collectionRef = FirebaseFirestore.instance.collection('sgs');
-    var snapshot = await collectionRef.where('deadline', isGreaterThan: DateTime.now()).get();
+    var snapshot = await collectionRef
+        .where('deadline', isGreaterThan: DateTime.now())
+        .get();
     List<SG> sgs = [];
     snapshot.docs.forEach((doc) {
       Map<String, dynamic> data = doc.data();

@@ -55,11 +55,11 @@ class _SGsState extends State<SGs> {
                                 children: [
                                   CustomSearchBar(onChanged: (value) {
                                     // setState(() {
-                                      sgs = snapshot.data!
-                                          .where((element) => element.name
-                                              .toLowerCase()
-                                              .contains(value.toLowerCase()))
-                                          .toList();
+                                    sgs = snapshot.data!
+                                        .where((element) => element.name
+                                            .toLowerCase()
+                                            .contains(value.toLowerCase()))
+                                        .toList();
                                     // });
                                   }),
                                   MonthlySGs(SGs: sgs),
@@ -108,18 +108,16 @@ class _MonthlySGsState extends State<MonthlySGs> {
     List<SG> SGs = widget.SGs;
     return Container(
       height: MediaQuery.of(context).size.height * 0.6,
-      child: Expanded(
-        child: ListView.builder(
-          itemCount: SGs.length,
-          itemBuilder: (context, index) {
-            SG sg = SGs[index];
-            return SgWidget(
-                sg: sg,
-                uparWaaleKaSetState: () {
-                  setState(() {});
-                });
-          },
-        ),
+      child: ListView.builder(
+        itemCount: SGs.length,
+        itemBuilder: (context, index) {
+          SG sg = SGs[index];
+          return SgWidget(
+              sg: sg,
+              uparWaaleKaSetState: () {
+                setState(() {});
+              });
+        },
       ),
     );
   }
