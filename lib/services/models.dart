@@ -135,6 +135,29 @@ class Event {
   }
 }
 
+class SportDetails {
+  // String id;
+  String name;
+  List<String> Coach;
+  String img;
+  List<String> practiceDays = [];
+  List<String> practiceTimings = [];
+  List<Student> team = [];
+  List<Event> events = [];
+  List<Student> Coordinators = [];
+
+  SportDetails({
+    required this.name,
+    this.Coach = const [],
+    this.img = "",
+    this.practiceDays = const [],
+    this.practiceTimings = const [],
+    this.team = const [],
+    this.events = const [],
+    this.Coordinators = const [],
+  });
+}
+
 class SG {
   String id;
   final String name;

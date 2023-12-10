@@ -1,7 +1,10 @@
+import 'package:expandable_text/expandable_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
+import 'package:sports_iiitd/common/colors.dart';
 import 'package:sports_iiitd/common/dateUtil.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +26,8 @@ class _SGsState extends State<SGs> {
           if (snapshot.connectionState == ConnectionState.done &&
               !snapshot.hasData) {
             return Center(
-              child: Text("No sgs", style: TextStyle(color: Colors.white)),
+              child:
+                  Text("No SPORT SGs", style: TextStyle(color: Colors.white)),
             );
           } else if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
@@ -36,7 +40,8 @@ class _SGsState extends State<SGs> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      customAppBar("SGS", context, logo: true, goBack: false),
+                      customAppBar("SPORT SGs", context,
+                          logo: true, goBack: false),
                       FutureBuilder(
                           future: getRunningSGs(),
                           builder: (context, snapshot) {
@@ -44,7 +49,8 @@ class _SGsState extends State<SGs> {
                                     ConnectionState.done &&
                                 !snapshot.hasData) {
                               return Center(
-                                child: Text("No SGs",
+                                child: Text(
+                                    "No Sport SGs are offered currently",
                                     style: TextStyle(color: Colors.white)),
                               );
                             } else if (snapshot.connectionState ==
@@ -53,6 +59,9 @@ class _SGsState extends State<SGs> {
                               List<SG> sgs = snapshot.data!;
                               return Column(
                                 children: [
+                                  SizedBox(
+                                    height: 15,
+                                  ),
                                   CustomSearchBar(onChanged: (value) {
                                     // setState(() {
                                     sgs = snapshot.data!
@@ -184,9 +193,10 @@ class _SgWidgetState extends State<SgWidget> {
                 widget.sg.participants.contains(user!.uid)
                     ? "Unregister"
                     : "Register",
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
               ),
             ],
@@ -195,50 +205,66 @@ class _SgWidgetState extends State<SgWidget> {
       ),
       onDismissed: (DismissDirection direction) async {},
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.symmetric(vertical: 16.0),
+        padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+        width: MediaQuery.of(context).size.width,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(IconlyBold.more_circle,
-                    color: const Color.fromARGB(255, 95, 22, 16)),
+                // Icon(IconlyBold.more_circle,
+                //     color: const Color.fromARGB(255, 95, 22, 16)),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
+                  width: 260,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.sg.name + " - " + widget.sg.credits + " credits",
-                        style: TextStyle(
+                        "Athletics Edge - " + widget.sg.name,
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Text(widget.sg.credits + " credits",
+                          style: GoogleFonts.poppins(
+                            color: CustomColors.golden,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
                       Text(
-                        getReadableDate(widget.sg.deadline),
-                        style: TextStyle(
+                        "Deadline To Apply : " +
+                            getReadableDate(widget.sg.deadline),
+                        style: GoogleFonts.poppins(
                           color: Color.fromARGB(255, 212, 209, 209),
                           fontWeight: FontWeight.w400,
-                          fontSize: 18,
+                          fontSize: 12,
                         ),
                       ),
-                      Text(
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ExpandableText(
                         widget.sg.description,
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Color.fromARGB(255, 212, 209, 209),
                           fontWeight: FontWeight.w300,
-                          fontSize: 14,
+                          fontSize: 10,
                         ),
+                        expandText: "Read more",
+                        collapseText: "Read Less",
+                        maxLines: 4,
                       ),
                     ],
                   ),
                 ),
                 SizedBox(width: 6),
                 Image.asset(
-                  "assets/" + 'logo.png',
+                  "assets/" + 'sportscouncil_logo.png',
                   width: MediaQuery.of(context).size.width * 0.2,
                   fit: BoxFit.cover,
                   errorBuilder: (BuildContext context, Object exception,
@@ -251,6 +277,9 @@ class _SgWidgetState extends State<SgWidget> {
                   },
                 ),
               ],
+            ),
+            SizedBox(
+              height: 8,
             ),
             widget.sg.participants.contains(user!.uid)
                 ? Container(

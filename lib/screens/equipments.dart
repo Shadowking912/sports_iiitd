@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
@@ -48,7 +49,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
+        padding: EdgeInsets.fromLTRB(10, 60, 10, 0),
         color: CustomColors.black,
         child: Column(
           children: [
@@ -57,7 +58,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               context,
               logo: true,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             CustomSearchBar(
               onChanged: search,
             ),
@@ -129,7 +130,7 @@ class SportWidget extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: EdgeInsets.symmetric(vertical: 6),
               decoration: BoxDecoration(
                 color: CustomColors.red.withOpacity(0.5),
                 borderRadius: BorderRadius.all(
@@ -138,10 +139,11 @@ class SportWidget extends StatelessWidget {
               ),
               child: Text(
                 sportName.toUpperCase(),
-                style: TextStyle(
+                style: GoogleFonts.anton(
                   color: CustomColors.white,
                   fontWeight: FontWeight.w800,
-                  fontSize: 14,
+                  fontSize: 16,
+                  letterSpacing: 1,
                 ),
                 textAlign: TextAlign.center,
               ),

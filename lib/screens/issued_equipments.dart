@@ -22,39 +22,33 @@ class IssuedEquipmentsScreen extends StatelessWidget {
             return Container(
               color: Colors.black,
               height: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+              padding: EdgeInsets.only(left: 5, right: 0, bottom: 20),
               child: ListView.builder(
-                itemCount: (snapshot.data!
-                        .length) +
-                    1,
+                itemCount: (snapshot.data!.length) + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {
                     return Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                       child: customAppBar(
-                        'Issued Equipments',
+                        'Equipments History',
                         context,
                         goBack: true,
-                        logo: true,
+                        logo: false,
                       ),
                     );
                   } else {
                     return ListTile(
                       title: Text('Equipment: ' +
-                          snapshot.data![index - 1]
-                              ['equipment']),
+                          snapshot.data![index - 1]['equipment']),
                       subtitle: Text('Issued on: ' +
-                          getReadableDate(snapshot
-                              .data![index - 1]['date']
-                              .toDate())),
+                          getReadableDate(
+                              snapshot.data![index - 1]['date'].toDate())),
                       trailing: ElevatedButton(
                         onPressed: () async {
                           await requestReturnEquipment(
                             snapshot.data![index - 1]['sport'],
-                            snapshot.data![index - 1]
-                                ['equipment'],
-                            snapshot.data![index - 1]
-                                ['requestId'],
+                            snapshot.data![index - 1]['equipment'],
+                            snapshot.data![index - 1]['requestId'],
                           );
                           Navigator.pop(context);
                         },

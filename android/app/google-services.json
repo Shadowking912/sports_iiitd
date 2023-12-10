@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "353337839676-37jkeipgcqeiol5rinpiresqpv4t444n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sports_iiitd",
+            "certificate_hash": "fc11b2fade044e1015b880440c274a949fe36dcc"
+          }
+        },
+        {
           "client_id": "353337839676-5nbk1r5m76m9s82d7r2ene0m8rk5ke2j.apps.googleusercontent.com",
           "client_type": 3
         }

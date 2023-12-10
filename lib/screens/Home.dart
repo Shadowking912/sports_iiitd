@@ -168,42 +168,50 @@ class _HomePageState extends State<HomePage> {
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/maki_soccer.png",
                       sportsName: "Football",
-                      sportsDetail: "Spectacular goals & football fever!", context:context),
+                      sportsDetail: "Spectacular goals & football fever!",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_basketball.png",
                       sportsName: "Basketball",
-                      sportsDetail: "Dunk into excitement!", context:context),
+                      sportsDetail: "Dunk into excitement!",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_swimming.png",
                       sportsName: "Swimming",
-                      sportsDetail: "Laps, dives and swimming waves.", context:context),
+                      sportsDetail: "Laps, dives and swimming waves.",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/cricket.png",
                       sportsName: "Cricket",
-                      sportsDetail: "Wickets fall, runs rise in cricket buzz", context:context),
+                      sportsDetail: "Wickets fall, runs rise in cricket buzz",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/maki_soccer.png",
                       sportsName: "Lawn Tennis",
-                      sportsDetail: "Aces, serves and tennis flairs!", context:context),
+                      sportsDetail: "Aces, serves and tennis flairs!",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_basketball.png",
                       sportsName: "Badminton",
-                      sportsDetail: "Shuttles, rallies, badminton action!", context:context),
+                      sportsDetail: "Shuttles, rallies, badminton action!",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 171, 52, 59),
                       imagePath: "assets/sports_icons/maki_swimming.png",
                       sportsName: "Squash",
-                      sportsDetail: "Rallies, volleys, squash intensity!", context:context),
+                      sportsDetail: "Rallies, volleys, squash intensity!",
+                      context: context),
                   sportsInfoTile(
                       blockColor: Color.fromARGB(255, 193, 169, 109),
                       imagePath: "assets/sports_icons/cricket.png",
                       sportsName: "Table Tennis",
-                      sportsDetail: "Ping-pong finesse, rapid rallies!", context:context),
+                      sportsDetail: "Ping-pong finesse, rapid rallies!",
+                      context: context),
                 ],
               ),
             ),
@@ -417,6 +425,7 @@ Container eventTile(Event event, String uid) {
   return Container(
     margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -493,7 +502,7 @@ Container eventTile(Event event, String uid) {
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                           color: event.participants.contains(uid)
-                              ? CustomColors.red.withOpacity(0.3)
+                              ? Colors.green.withOpacity(0.8)
                               : CustomColors.red,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(

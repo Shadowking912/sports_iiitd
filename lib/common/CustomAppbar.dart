@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 import 'colors.dart';
@@ -8,48 +9,53 @@ Row customAppBar(String title, BuildContext context,
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          goBack
-              ? InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        IconlyLight.arrow_left,
-                        color: CustomColors.red,
-                        size: 16,
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        "Go Back",
-                        style: TextStyle(color: CustomColors.red, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                )
-              : Container(),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w400,
-              color: CustomColors.white,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            goBack
+                ? InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          IconlyLight.arrow_left,
+                          color: CustomColors.red,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          "Go Back",
+                          style: GoogleFonts.poppins(
+                              color: CustomColors.red, fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(),
+            Text(
+              title,
+              style: GoogleFonts.anton(
+                fontSize: 40,
+                fontWeight: FontWeight.w500,
+                color: CustomColors.white,
+                letterSpacing: 2,
+              ),
+              textAlign: TextAlign.left,
             ),
-            textAlign: TextAlign.left,
-          ),
-        ],
+          ],
+        ),
       ),
       logo
           ? Image.asset(
-              'assets/logo.png',
-              height: 60,
-              width: 60,
+              'assets/sportscouncil_logo.png',
+              height: 50,
+              width: 50,
             )
           : Container(),
     ],

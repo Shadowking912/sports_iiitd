@@ -8,11 +8,12 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
-        color: Colors.black,
+        body: Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height,
+      padding: EdgeInsets.fromLTRB(20, 60, 20, 0),
+      color: Colors.black,
+      child: SingleChildScrollView(
         child: Column(
           children: [
             customAppBar("HISTORY", context, logo: true, goBack: true),
@@ -26,11 +27,13 @@ class History extends StatelessWidget {
                     children: [
                       Container(
                         height: MediaQuery.of(context).size.height * 0.4,
-                        child: SingleChildScrollView(child: EquipmentHistory(student: snapshot.data!)),
+                        child: SingleChildScrollView(
+                            child: EquipmentHistory(student: snapshot.data!)),
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.38,
-                        child: SingleChildScrollView(child: EventHistory(student: snapshot.data!))),
+                          height: MediaQuery.of(context).size.height * 0.38,
+                          child: SingleChildScrollView(
+                              child: EventHistory(student: snapshot.data!))),
                     ],
                   );
                 } else if (snapshot.connectionState == ConnectionState.done &&
@@ -43,7 +46,7 @@ class History extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 
