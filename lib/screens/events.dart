@@ -1,7 +1,10 @@
+import 'package:expandable_text/expandable_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sports_iiitd/common/CustomAppbar.dart';
+import 'package:sports_iiitd/common/colors.dart';
 import 'package:sports_iiitd/common/dateUtil.dart';
 import 'package:sports_iiitd/common/searchbar.dart';
 import 'package:intl/intl.dart';
@@ -48,6 +51,7 @@ class Events extends StatelessWidget {
                 child: Column(
                   children: [
                     customAppBar("EVENTS", context, logo: true, goBack: false),
+                    SizedBox(height: 10),
                     CustomSearchBar(),
                     MonthlyEvents(),
                   ],
@@ -147,7 +151,7 @@ class _MonthlyEventsState extends State<MonthlyEvents> {
     super.initState();
   }
 
-  bool showRegistered = true;
+  bool showRegistered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +159,7 @@ class _MonthlyEventsState extends State<MonthlyEvents> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding:
-              EdgeInsets.fromLTRB(0, 30, 16, 0), // Adjust the padding as needed
+              EdgeInsets.fromLTRB(0, 15, 16, 0), // Adjust the padding as needed
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -177,9 +181,9 @@ class _MonthlyEventsState extends State<MonthlyEvents> {
                   ),
                   Text(
                     displayMonth, // Display the month name here
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
                   ),
@@ -220,47 +224,50 @@ class _MonthlyEventsState extends State<MonthlyEvents> {
                     borderRadius: BorderRadius.circular(
                         8.0), // Adjust the border radius as needed
                   ),
-                  padding: EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(0),
+                  minimumSize: Size(40, 32),
                 ),
                 child: Icon(
                   IconlyLight.calendar,
                   color: Colors.white,
-                  size: 24.0,
+                  size: 20.0,
                 ),
               ),
             ],
           ),
         ),
-        SizedBox(height: 16),
-        Center(
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 25, 0, 25),
+          alignment: Alignment.center,
           child: Text(
-            "Swipe event to register/unregister",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w300,
-              fontSize: 14,
+            "|| Swipe events to register/unregister ||",
+            style: GoogleFonts.poppins(
+              color: Color.fromARGB(179, 247, 243, 243),
+              fontWeight: FontWeight.w500,
+              fontSize: 15,
             ),
           ),
         ),
         Row(
           children: [
-            //todo: Create the logic for the choice chips
-            ChoiceChip(
-              label: Text("Registered"),
-              selected: showRegistered,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25)),
-              onSelected: (bool selected) {
-                setState(() {
-                  showRegistered = selected;
-                });
-              }, // Add your onPressed logic here
-            ),
+            // todo: Create the logic for the choice chips
+            // ChoiceChip(
+            //   label: Text("Registered"),
+            //   selected: showRegistered,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(15)),
+            //   onSelected: (bool selected) {
+            //     setState(() {
+            //       showRegistered = selected; // Add your onPressed logic here
+            //     });
+            //   },
+            //   selectedColor: Color.fromARGB(255, 95, 22, 16),
+            //   disabledColor: CustomColors.black,
+            // ),
           ],
         ),
         FutureBuilder(
-            future:
-                getEventsByMonth(currentMonth, currentYear),
+            future: getEventsByMonth(currentMonth, currentYear),
             builder: (context, snapshot) {
               print(eventsByMonth);
               if (snapshot.hasData) {
@@ -357,9 +364,10 @@ class _EventWidgetState extends State<EventWidget> {
                 widget.event.participants.contains(user!.uid)
                     ? "Unregister"
                     : "Register",
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
               ),
             ],
@@ -368,25 +376,28 @@ class _EventWidgetState extends State<EventWidget> {
       ),
       onDismissed: (DismissDirection direction) async {},
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.symmetric(vertical: 16.0),
+        padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+        width: MediaQuery.of(context).size.width,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(IconlyBold.more_circle,
-                    color: const Color.fromARGB(255, 95, 22, 16)),
+                // Icon(IconlyBold.more_circle,
+                //     color: const Color.fromARGB(255, 95, 22, 16)),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
+                  width: 260,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.event.name + " - " + widget.event.sport,
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -394,38 +405,49 @@ class _EventWidgetState extends State<EventWidget> {
                         getReadableDate(widget.event.date) +
                             " - " +
                             widget.event.location,
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Color.fromARGB(255, 212, 209, 209),
                           fontWeight: FontWeight.w400,
-                          fontSize: 18,
+                          fontSize: 12,
                         ),
                       ),
-                      Text(
+                      SizedBox(height: 20),
+                      ExpandableText(
                         widget.event.description,
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Color.fromARGB(255, 212, 209, 209),
                           fontWeight: FontWeight.w300,
-                          fontSize: 14,
+                          fontSize: 10,
                         ),
+                        expandText: "Read more",
+                        collapseText: "Read Less",
+                        maxLines: 3,
                       ),
                     ],
                   ),
                 ),
                 SizedBox(width: 6),
-                Image.asset(
-                  "assets/" + sportsImages[widget.event.sport]!,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  fit: BoxFit.cover,
-                  errorBuilder: (BuildContext context, Object exception,
-                      StackTrace? stackTrace) {
-                    return Image.asset(
-                      "assets/logo.png",
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      fit: BoxFit.cover,
-                    );
-                  },
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    "assets/" + sportsImages[widget.event.sport]!,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    height: 110,
+                    fit: BoxFit.cover,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return Image.asset(
+                        "assets/sportscouncil_logo.png",
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 8,
             ),
             widget.event.participants.contains(user!.uid)
                 ? Container(
