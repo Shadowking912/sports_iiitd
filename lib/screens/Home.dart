@@ -502,7 +502,7 @@ Container eventTile(Event event, String uid) {
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                           color: event.participants.contains(uid)
-                              ? CustomColors.red.withOpacity(0.3)
+                              ? Colors.green.withOpacity(0.8)
                               : CustomColors.red,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(

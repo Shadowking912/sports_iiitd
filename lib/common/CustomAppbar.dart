@@ -54,8 +54,8 @@ Row customAppBar(String title, BuildContext context,
       logo
           ? Image.asset(
               'assets/sportscouncil_logo.png',
-              height: 45,
-              width: 45,
+              height: 50,
+              width: 50,
             )
           : Container(),
     ],

@@ -390,7 +390,7 @@ class _EventWidgetState extends State<EventWidget> {
                 Container(
                   width: 260,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
